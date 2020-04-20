@@ -1,30 +1,26 @@
 <svg>
-  <!-- TOP LEFT -->
-  <use id="btn-tl" href="#combo-button-upper-left" fill="fb-cyan">
-    <set href="combo-button-icon" attributeName="href" to="cog.png"/>
-    <set href="combo-button-icon-press" attributeName="href" to="cog_press.png"/>
-  </use>
+
   <!-- TOP RIGHT -->
-  <use id="btn-tr" href="#combo-button-upper-right" fill="fb-peach">
+  <use id="btn-monk" href="#combo-button-upper-right" fill="fb-peach">
     <set href="combo-button-icon" attributeName="href" to="monk-base.png"/>
     <set href="combo-button-icon-press" attributeName="href" to="monk-pressed.png"/>
     <set href="combo-button-stroke" attributeName="display" to="inline"/>
   </use>
   <!-- BOTTOM RIGHT -->
-  <use id="btn-br" href="#combo-button-lower-right" fill="fb-red">
+  <use id="btn-monster" href="#combo-button-lower-right" fill="fb-red">
     <set href="combo-button-icon" attributeName="href" to="dragon-base.png"/>
     <set href="combo-button-icon-press" attributeName="href" to="dragon-pressed.png"/>
     <set href="combo-button-stroke" attributeName="display" to="inline"/>
   </use>
   <!-- BOTTOM LEFT -->
-  <use id="btn-bl" href="#combo-button-lower-left" fill="fb-white">
+  <use id="btn-marshmallow" href="#combo-button-lower-left" fill="fb-white">
     <set href="combo-button-icon" attributeName="href" to="marshmallow-base.png"/>
     <set href="combo-button-icon-press" attributeName="href" to="marshmallow-pressed.png"/>
     <set href="combo-button-stroke" attributeName="display" to="inline"/>
   </use>
   <!-- TOP LEFT -->
 <use>
-    <use id="btn-bl" href="#combo-button-upper-left" fill="fb-blue">
+    <use id="btn-pause" href="#combo-button-upper-left" fill="fb-blue">
     <set href="combo-button-icon" attributeName="href" to="pause-base.png"/>
     <set href="combo-button-icon-press" attributeName="href" to="pause-pressed.png"/>
     <set href="combo-button-stroke" attributeName="display" to="inline"/>
