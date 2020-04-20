@@ -1,10 +1,11 @@
 import * as buttons from './buttons';
-import { MMMTracker, MMMMode } from './MMMTracker';
+import { MmmTracker, MmmMode } from './MmmTracker';
+import * as views from './views';
 
-let tracker = new MMMTracker();
+let tracker = new MmmTracker();
 if (!tracker) {
   console.log('Failed to create tracker; trying again...');
-  tracker = new MMMTracker();
+  tracker = new MmmTracker();
 }
 
 buttons.marshmallow().addEventListener('activate', (evt) => {
@@ -12,8 +13,9 @@ buttons.marshmallow().addEventListener('activate', (evt) => {
 });
 
 buttons.monk().addEventListener('activate', (evt) => {
-  tracker.update(MMMMode.monk);
-  console.log('Monk btn pressed: ', tracker.getCount(MMMMode.monk));
+  tracker.update(MmmMode.monk);
+  views.arcHandler(tracker);
+  console.log('Monk btn pressed: ', tracker.getCount(MmmMode.monk));
 });
 
 buttons.monster().addEventListener('activate', (evt) => {
