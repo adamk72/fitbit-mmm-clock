@@ -1,28 +1,27 @@
 <svg>
-
+  <!-- TOP LEFT -->
+  <use id="btn-pause" href="#combo-button-upper-left" fill="fb-blue">
+    <set href="combo-button-icon" attributeName="href" to="icons/pause-base.png"/>
+    <set href="combo-button-icon-press" attributeName="href" to="icons/pause-pressed.png"/>
+    <set href="combo-button-stroke" attributeName="display" to="inline"/>
+  </use>
   <!-- TOP RIGHT -->
   <use id="btn-monk" href="#combo-button-upper-right" fill="fb-peach">
-    <set href="combo-button-icon" attributeName="href" to="monk-base.png"/>
-    <set href="combo-button-icon-press" attributeName="href" to="monk-pressed.png"/>
+    <set href="combo-button-icon" attributeName="href" to="icons/monk-base.png"/>
+    <set href="combo-button-icon-press" attributeName="href" to="icons/monk-pressed.png"/>
     <set href="combo-button-stroke" attributeName="display" to="inline"/>
   </use>
   <!-- BOTTOM RIGHT -->
   <use id="btn-monster" href="#combo-button-lower-right" fill="fb-red">
-    <set href="combo-button-icon" attributeName="href" to="dragon-base.png"/>
-    <set href="combo-button-icon-press" attributeName="href" to="dragon-pressed.png"/>
+    <set href="combo-button-icon" attributeName="href" to="icons/dragon-base.png"/>
+    <set href="combo-button-icon-press" attributeName="href" to="icons/dragon-pressed.png"/>
     <set href="combo-button-stroke" attributeName="display" to="inline"/>
   </use>
   <!-- BOTTOM LEFT -->
   <use id="btn-marshmallow" href="#combo-button-lower-left" fill="fb-white">
-    <set href="combo-button-icon" attributeName="href" to="marshmallow-base.png"/>
-    <set href="combo-button-icon-press" attributeName="href" to="marshmallow-pressed.png"/>
+    <set href="combo-button-icon" attributeName="href" to="icons/marshmallow-base.png"/>
+    <set href="combo-button-icon-press" attributeName="href" to="icons/marshmallow-pressed.png"/>
     <set href="combo-button-stroke" attributeName="display" to="inline"/>
   </use>
-  <!-- TOP LEFT -->
-<use>
-    <use id="btn-pause" href="#combo-button-upper-left" fill="fb-blue">
-    <set href="combo-button-icon" attributeName="href" to="pause-base.png"/>
-    <set href="combo-button-icon-press" attributeName="href" to="pause-pressed.png"/>
-    <set href="combo-button-stroke" attributeName="display" to="inline"/>
-  </use>
+
 </svg>

@@ -1,7 +1,7 @@
 import document from 'document';
+import * as buttons from './buttons';
 
-let btnTR = document.getElementById('btn-tr');
-btnTR.onactivate = function (evt) {
+buttons.marshmallow.onactivate = function (evt) {
   console.log(evt.target);
   console.log('TOP RIGHT!');
 };
