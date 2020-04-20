@@ -8,19 +8,21 @@ if (!tracker) {
   tracker = new MmmTracker();
 }
 
-buttons.marshmallow().addEventListener('activate', (evt) => {
-  console.log('Marshmallow btn pressed');
-});
-
 buttons.monk().addEventListener('activate', (evt) => {
   tracker.update(MmmMode.monk);
   views.arcHandler(tracker);
-  console.log('Monk btn pressed: ', tracker.getCount(MmmMode.monk));
+});
+
+buttons.marshmallow().addEventListener('activate', (evt) => {
+  tracker.update(MmmMode.marshmallow);
+  views.arcHandler(tracker);
 });
 
 buttons.monster().addEventListener('activate', (evt) => {
-  console.log('Monster btn pressed');
+  tracker.update(MmmMode.monster);
+  views.arcHandler(tracker);
 });
 buttons.pause().addEventListener('activate', (evt) => {
-  console.log('Pause btn pressed');
+  tracker.update(MmmMode.pause);
+  views.arcHandler(tracker);
 });
