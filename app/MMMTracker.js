@@ -21,6 +21,14 @@ export function MmmTracker() {
     this.currentMode = mode;
   };
 
+  this.reset = () => {
+    console.log('reset');
+    this.monkCnt = 0;
+    this.monsterCnt = 0;
+    this.marshmallowCnt = 0;
+    this.pauseCnt = 0;
+  };
+
   this.update = () => {
     console.log(this.currentMode);
     switch (this.currentMode) {
@@ -57,6 +65,6 @@ export function MmmTracker() {
   };
 
   this.countTotal = () => {
-    return this.monkCnt + this.marshmallowCnt + this.monsterCnt;
+    return this.monkCnt + this.marshmallowCnt + this.monsterCnt + this.pauseCnt;
   };
 }
