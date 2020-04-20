@@ -1,29 +1,53 @@
 import document from 'document';
 import { MmmMode } from './MmmTracker';
-let monkArc = () => document.getElementById('monk-arc');
-let monsterArc = () => document.getElementById('monster-arc');
-let marshmallowArc = () => document.getElementById('marshmallow-arc');
-let pauseArc = () => document.getElementById('pause-arc');
+let monkMarc = () => document.getElementById('monk-mArc');
+let monsterMarc = () => document.getElementById('monster-mArc');
+let marshmallowMarc = () => document.getElementById('marshmallow-mArc');
+let pauseMarc = () => document.getElementById('pause-mArc');
+
+let monkHarc = () => document.getElementById('monk-hArc');
+let monsterHarc = () => document.getElementById('monster-hArc');
+let marshmallowHarc = () => document.getElementById('marshmallow-hArc');
+let pauseHarc = () => document.getElementById('pause-hArc');
 
 const TEST_MULT = 12;
 export function arcHandler(mmmTracker) {
   let total = mmmTracker.countTotal();
   console.log('total = ' + total * TEST_MULT);
-  if (total * TEST_MULT >= 360 - TEST_MULT + 1) {
+  if (total * TEST_MULT >= 360) {
     mmmTracker.reset();
   }
-  monkArc().sweepAngle = mmmTracker.getCount(MmmMode.monk) * TEST_MULT;
+  /***** Minutes *****/
+  monkMarc().sweepAngle = mmmTracker.getCount(MmmMode.monk) * TEST_MULT;
 
-  monsterArc().startAngle = monkArc().sweepAngle;
-  monsterArc().sweepAngle = mmmTracker.getCount(MmmMode.monster) * TEST_MULT;
+  monsterMarc().startAngle = monkMarc().sweepAngle;
+  monsterMarc().sweepAngle = mmmTracker.getCount(MmmMode.monster) * TEST_MULT;
 
-  marshmallowArc().startAngle = monsterArc().sweepAngle + monkArc().sweepAngle;
-  marshmallowArc().sweepAngle =
+  marshmallowMarc().startAngle =
+    monsterMarc().sweepAngle + monkMarc().sweepAngle;
+  marshmallowMarc().sweepAngle =
     mmmTracker.getCount(MmmMode.marshmallow) * TEST_MULT;
 
-  pauseArc().startAngle =
-    marshmallowArc().sweepAngle +
-    monsterArc().sweepAngle +
-    monkArc().sweepAngle;
-  pauseArc().sweepAngle = mmmTracker.getCount(MmmMode.pause) * TEST_MULT;
+  pauseMarc().startAngle =
+    marshmallowMarc().sweepAngle +
+    monsterMarc().sweepAngle +
+    monkMarc().sweepAngle;
+  pauseMarc().sweepAngle = mmmTracker.getCount(MmmMode.pause) * TEST_MULT;
+
+  /***** Hours *****/
+  monkHarc().sweepAngle = mmmTracker.getCount(MmmMode.monk) * TEST_MULT;
+
+  monsterHarc().startAngle = monkHarc().sweepAngle;
+  monsterHarc().sweepAngle = mmmTracker.getCount(MmmMode.monster) * TEST_MULT;
+
+  marshmallowHarc().startAngle =
+    monsterHarc().sweepAngle + monkHarc().sweepAngle;
+  marshmallowHarc().sweepAngle =
+    mmmTracker.getCount(MmmMode.marshmallow) * TEST_MULT;
+
+  pauseHarc().startAngle =
+    marshmallowHarc().sweepAngle +
+    monsterHarc().sweepAngle +
+    monkHarc().sweepAngle;
+  pauseHarc().sweepAngle = mmmTracker.getCount(MmmMode.pause) * TEST_MULT;
 }

@@ -1,22 +1,41 @@
-
 <svg>
+<section id="hours-circle">
   <!-- pause arc-->
-  <arc id="pause-arc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-blue"
+  <arc id="pause-hArc" x="50%-99" y="50%-99" width="198" height="198" fill="fb-blue"
     arc-width="10" start-angle="0" sweep-angle="0"/>
 
   <!-- monk arc-->
-  <arc id="monk-arc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-peach"
-    arc-width="10" start-angle="0" sweep-angle="0"/>
-
+  <arc id="monk-hArc" x="50%-99" y="50%-99" width="198" height="198" fill="fb-peach"
+    arc-width="10" start-angle="0" sweep-angle="0">
+    </arc>
 
   <!-- monster arc-->
-  <arc id="monster-arc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-red"
+  <arc id="monster-hArc" x="50%-99" y="50%-99" width="198" height="198" fill="fb-red"
     arc-width="10" start-angle="0" sweep-angle="0"/>
 
-      <!-- marshmallow arc-->
-  <arc id="marshmallow-arc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-white"
+  <!-- marshmallow arc-->
+  <arc id="marshmallow-hArc" x="50%-99" y="50%-99" width="198" height="198" fill="fb-white"
+    arc-width="10" start-angle="0" sweep-angle="0"/>
+</section>
+<section id="minutes-circle">
+  <!-- pause arc-->
+  <arc id="pause-mArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-blue"
     arc-width="10" start-angle="0" sweep-angle="0"/>
 
+  <!-- monk arc-->
+  <arc id="monk-mArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-peach"
+    arc-width="10" start-angle="0" sweep-angle="0">
+    </arc>
+
+  <!-- monster arc-->
+  <arc id="monster-mArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-red"
+    arc-width="10" start-angle="0" sweep-angle="0"/>
+
+  <!-- marshmallow arc-->
+  <arc id="marshmallow-mArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-white"
+    arc-width="10" start-angle="0" sweep-angle="0"/>
+</section>
+<section id="buttons">
   <!-- TOP LEFT -->
   <use id="btn-pause" href="#combo-button-upper-left" fill="fb-blue">
     <set href="combo-button-icon" attributeName="href" to="icons/pause-base.png"/>
@@ -41,5 +60,5 @@
     <set href="combo-button-icon-press" attributeName="href" to="icons/marshmallow-pressed.png"/>
     <set href="combo-button-stroke" attributeName="display" to="inline"/>
   </use>
-
+  </section>
 </svg>
