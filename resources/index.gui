@@ -22,4 +22,11 @@
     <set href="combo-button-icon-press" attributeName="href" to="marshmallow-pressed.png"/>
     <set href="combo-button-stroke" attributeName="display" to="inline"/>
   </use>
+  <!-- TOP LEFT -->
+<use>
+    <use id="btn-bl" href="#combo-button-upper-left" fill="fb-blue">
+    <set href="combo-button-icon" attributeName="href" to="pause-base.png"/>
+    <set href="combo-button-icon-press" attributeName="href" to="pause-pressed.png"/>
+    <set href="combo-button-stroke" attributeName="display" to="inline"/>
+  </use>
 </svg>
