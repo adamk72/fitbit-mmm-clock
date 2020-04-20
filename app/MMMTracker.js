@@ -15,6 +15,7 @@ export function MmmTracker() {
   this.monkCnt = 0;
   this.monsterCnt = 0;
   this.marshmallowCnt = 0;
+  this.pauseCnt = 0;
 
   this.setCurrentMode = (mode) => {
     this.currentMode = mode;
@@ -32,6 +33,9 @@ export function MmmTracker() {
       case MmmMode.marshmallow:
         this.marshmallowCnt = this.marshmallowCnt + 1;
         return;
+      case MmmMode.pause:
+        this.pauseCnt = this.pauseCnt + 1;
+        return;
       default:
         return;
     }
@@ -45,6 +49,8 @@ export function MmmTracker() {
         return this.monsterCnt;
       case MmmMode.marshmallow:
         return this.marshmallowCnt;
+      case MmmMode.pause:
+        return this.pauseCnt;
       default:
         return;
     }

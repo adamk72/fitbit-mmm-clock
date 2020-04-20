@@ -13,4 +13,10 @@ export function arcHandler(mmmTracker) {
 
   marshmallowArc().startAngle = monsterArc().sweepAngle + monkArc().sweepAngle;
   marshmallowArc().sweepAngle = mmmTracker.getCount(MmmMode.marshmallow) * 6;
+
+  pauseArc().startAngle =
+    marshmallowArc().sweepAngle +
+    monsterArc().sweepAngle +
+    monkArc().sweepAngle;
+  pauseArc().sweepAngle = mmmTracker.getCount(MmmMode.pause) * 6;
 }

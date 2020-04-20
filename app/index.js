@@ -28,6 +28,7 @@ buttons.marshmallow().addEventListener('activate', (evt) => {
 buttons.monster().addEventListener('activate', (evt) => {
   tracker.setCurrentMode(MmmMode.monster);
 });
+
 buttons.pause().addEventListener('activate', (evt) => {
   tracker.setCurrentMode(MmmMode.pause);
 });
