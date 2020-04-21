@@ -20,21 +20,11 @@ export function arcHandler(mmmTracker) {
   });
 
   arcs.minuteArcs[0]().startAngle = 0;
-  // console.log('0: ' + arcs.minuteArcs[0]().sweepAngle);
   arcs.minuteArcs[1]().startAngle = arcs.minuteArcs[0]().sweepAngle;
-  // console.log('1: ' + arcs.minuteArcs[1].sweepAngle);
   arcs.minuteArcs[2]().startAngle =
     arcs.minuteArcs[0]().sweepAngle + arcs.minuteArcs[1]().sweepAngle;
-  // console.log('2: ' + arcs.minuteArcs[2].sweepAngle);
   arcs.minuteArcs[3]().startAngle =
     arcs.minuteArcs[0]().sweepAngle +
     arcs.minuteArcs[1]().sweepAngle +
     arcs.minuteArcs[2]().sweepAngle;
-  // console.log('3: ' + arcs.minuteArcs[3].sweepAngle);
-
-  // -  pauseMarc().startAngle =
-  // -    marshmallowMarc().sweepAngle +
-  // -    monsterMarc().sweepAngle +
-  // -    monkMarc().sweepAngle;
-  // -  pauseMarc().sweepAngle = mmmTracker.getCount(MmmMode.pause) * TEST_MULT;
 }
