@@ -14,23 +14,23 @@ function setStartAngles(arcList) {
     arcList[0]().sweepAngle + arcList[1]().sweepAngle + arcList[2]().sweepAngle;
 }
 
-export function arcHandler(mmmTracker) {
+export function arcHandler(tracker) {
   // Initialize the arcs arrays if they doesn't exist yet.
 
-  let total = mmmTracker.countTotal();
+  let total = tracker.countTotal();
   if (total * MIN_TEST_MULT >= 360) {
-    mmmTracker.reset();
+    tracker.reset();
   }
 
   // Get the sweep angle by mode
   arcs.minuteArcs.forEach((arc, index) => {
     arc().sweepAngle =
-      mmmTracker.getMinuteCount(arcs.arcsList[index].mode) * MIN_TEST_MULT;
+      tracker.getMinuteCount(arcs.arcsList[index].mode) * MIN_TEST_MULT;
   });
 
   arcs.hourArcs.forEach((arc, index) => {
     arc().sweepAngle =
-      mmmTracker.getHourCount(arcs.arcsList[index + IDX_ADJUST].mode) *
+      tracker.getHourCount(arcs.arcsList[index + IDX_ADJUST].mode) *
       HR_TEST_MULT;
   });
 
