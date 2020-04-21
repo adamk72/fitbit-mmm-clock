@@ -16,30 +16,22 @@ export function arcHandler(mmmTracker) {
     if (arcs.arcsList[index].type === 'minute') {
       arc().sweepAngle =
         mmmTracker.getCount(arcs.arcsList[index].mode) * TEST_MULT;
-      // switch (index) {
-      //   case 0:
-      //     arc().startAngle = arcs.minuteArcs[0].sweepAngle;
-      //     return;
-      //   case 1:
-      //     arc().startAngle =
-      //       arcs.minuteArcs[0].sweepAngle + arcs.minuteArcs[1].sweepAngle;
-      //     return;
-      //   case 2:
-      //     arc().startAngle =
-      //       arcs.minuteArcs[0].sweepAngle +
-      //       arcs.minuteArcs[1].sweepAngle +
-      //       arcs.minuteArcs[2].sweepAngle;
-      //     return;
-      //   case 3:
-      //     arc().startAngle =
-      //       arcs.minuteArcs[0].sweepAngle +
-      //       arcs.minuteArcs[1].sweepAngle +
-      //       arcs.minuteArcs[2].sweepAngle +
-      //       arcs.minuteArcs[3].sweepAngle;
-      //     return;
-      // }
     }
   });
+
+  arcs.minuteArcs[0]().startAngle = 0;
+  // console.log('0: ' + arcs.minuteArcs[0]().sweepAngle);
+  arcs.minuteArcs[1]().startAngle = arcs.minuteArcs[0]().sweepAngle;
+  // console.log('1: ' + arcs.minuteArcs[1].sweepAngle);
+  arcs.minuteArcs[2]().startAngle =
+    arcs.minuteArcs[0]().sweepAngle + arcs.minuteArcs[1]().sweepAngle;
+  // console.log('2: ' + arcs.minuteArcs[2].sweepAngle);
+  arcs.minuteArcs[3]().startAngle =
+    arcs.minuteArcs[0]().sweepAngle +
+    arcs.minuteArcs[1]().sweepAngle +
+    arcs.minuteArcs[2]().sweepAngle;
+  // console.log('3: ' + arcs.minuteArcs[3].sweepAngle);
+
   // -  pauseMarc().startAngle =
   // -    marshmallowMarc().sweepAngle +
   // -    monsterMarc().sweepAngle +
