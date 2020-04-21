@@ -12,10 +12,14 @@ export const MmmTimerState = {
 
 export function MmmTracker() {
   this.currentMode = MmmMode.pause;
-  this.monkCnt = 0;
-  this.monsterCnt = 0;
-  this.marshmallowCnt = 0;
-  this.pauseCnt = 0;
+  this.monkMinCnt = 0;
+  this.monsterMinCnt = 0;
+  this.marshmallowMinCnt = 0;
+  this.pauseMinCnt = 0;
+  this.monkHrCnt = 0;
+  this.monsterHrCnt = 0;
+  this.marshmallowHrCnt = 0;
+  this.pauseHrCnt = 0;
 
   this.setCurrentMode = (mode) => {
     this.currentMode = mode;
@@ -30,19 +34,19 @@ export function MmmTracker() {
   };
 
   this.update = () => {
-    console.log(this.currentMode);
+    console.log('Curr Mode:' + this.currentMode);
     switch (this.currentMode) {
       case MmmMode.monk:
-        this.monkCnt = this.monkCnt + 1;
+        this.monkMinCnt = this.monkMinCnt + 1;
         return;
       case MmmMode.monster:
-        this.monsterCnt = this.monsterCnt + 1;
+        this.monsterMinCnt = this.monsterMinCnt + 1;
         return;
       case MmmMode.marshmallow:
-        this.marshmallowCnt = this.marshmallowCnt + 1;
+        this.marshmallowMinCnt = this.marshmallowMinCnt + 1;
         return;
       case MmmMode.pause:
-        this.pauseCnt = this.pauseCnt + 1;
+        this.pauseMinCnt = this.pauseMinCnt + 1;
         return;
       default:
         return;
@@ -52,13 +56,13 @@ export function MmmTracker() {
   this.getCount = (mode) => {
     switch (mode) {
       case MmmMode.monk:
-        return this.monkCnt;
+        return this.monkMinCnt;
       case MmmMode.monster:
-        return this.monsterCnt;
+        return this.monsterMinCnt;
       case MmmMode.marshmallow:
-        return this.marshmallowCnt;
+        return this.marshmallowMinCnt;
       case MmmMode.pause:
-        return this.pauseCnt;
+        return this.pauseMinCnt;
       default:
         return;
     }
