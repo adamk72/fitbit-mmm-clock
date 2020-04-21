@@ -19,7 +19,11 @@ export function arcHandler(tracker) {
 
   let total = tracker.countTotal();
   if (total * MIN_TEST_MULT >= 360) {
-    tracker.reset();
+    tracker.resetMinutes();
+  }
+
+  if (total * HR_TEST_MULT >= 360) {
+    tracker.resetHours();
   }
 
   // Get the sweep angle by mode

@@ -25,12 +25,18 @@ export function MmmTracker() {
     this.currentMode = mode;
   };
 
-  this.reset = () => {
-    // console.log('reset');
-    this.monkCnt = 0;
-    this.monsterCnt = 0;
-    this.marshmallowCnt = 0;
-    this.pauseCnt = 0;
+  this.resetMinutes = () => {
+    this.monkMinCnt = 0;
+    this.monsterMinCnt = 0;
+    this.marshmallowMinCnt = 0;
+    this.pauseMinCnt = 0;
+  };
+
+  this.resetHours = () => {
+    this.monkHrCnt = 0;
+    this.monsterHrCnt = 0;
+    this.marshmallowHrCnt = 0;
+    this.pauseHrCnt = 0;
   };
 
   this.update = () => {
