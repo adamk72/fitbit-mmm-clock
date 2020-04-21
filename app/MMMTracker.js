@@ -1,8 +1,8 @@
 export const MmmMode = {
-  monk: 'monk',
-  monster: 'monster',
-  marshmallow: 'marshmallow',
-  pause: 'pause',
+  monk: 'Monk',
+  monster: 'Monster',
+  marshmallow: 'Marshmallow',
+  pause: 'Idle',
 };
 
 export const MmmTimerState = {
@@ -23,6 +23,10 @@ export function MmmTracker() {
 
   this.setCurrentMode = (mode) => {
     this.currentMode = mode;
+  };
+
+  this.getCurrentMode = () => {
+    return this.currentMode;
   };
 
   this.resetMinutes = () => {
