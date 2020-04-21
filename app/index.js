@@ -11,6 +11,11 @@ if (!tracker) {
 
 clock.granularity = 'seconds';
 
+// Update current time
+clock.addEventListener('tick', (evt) => {
+  views.datetime(evt.date);
+});
+
 clock.addEventListener('tick', (evt) => {
   tracker.update();
   views.arcHandler(tracker);

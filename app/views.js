@@ -1,5 +1,8 @@
+import document from 'document';
 import * as arcs from './arcs';
 import { MmmMode } from './MmmTracker';
+
+import * as utils from './utils.js';
 
 const MIN_TEST_MULT = 45;
 const HR_TEST_MULT = MIN_TEST_MULT / 5;
@@ -10,6 +13,16 @@ function setStartAngles(arcList) {
   arcList[2]().startAngle = arcList[0]().sweepAngle + arcList[1]().sweepAngle;
   arcList[3]().startAngle =
     arcList[0]().sweepAngle + arcList[1]().sweepAngle + arcList[2]().sweepAngle;
+}
+
+let timeText = () => document.getElementById('time-text');
+
+export function datetime(date) {
+  /* Takes a Date object to update time related views */
+  timeText().text =
+    utils.toMonoDigits(date.getHours()) +
+    ':' +
+    utils.toMonoDigits(date.getMinutes());
 }
 
 export function arcHandler(tracker) {

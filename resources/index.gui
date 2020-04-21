@@ -61,4 +61,10 @@
     <set href="combo-button-stroke" attributeName="display" to="inline"/>
   </use>
   </section>
+
+  <section id="datetime">
+    <text id="time-text" font-family="System-Regular" font-size="28" text-anchor="middle" x="50%" y="77%" fill="white">
+      22:38
+    </text>
+  </section>
 </svg>
