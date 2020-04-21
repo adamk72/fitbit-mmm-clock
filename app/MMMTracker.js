@@ -38,22 +38,26 @@ export function MmmTracker() {
     switch (this.currentMode) {
       case MmmMode.monk:
         this.monkMinCnt = this.monkMinCnt + 1;
+        this.monkHrCnt = this.monkMinCnt + 1;
         return;
       case MmmMode.monster:
         this.monsterMinCnt = this.monsterMinCnt + 1;
+        this.monsterHrCnt = this.monsterMinCnt + 1;
         return;
       case MmmMode.marshmallow:
         this.marshmallowMinCnt = this.marshmallowMinCnt + 1;
+        this.marshmallowHrCnt = this.marshmallowMinCnt + 1;
         return;
       case MmmMode.pause:
         this.pauseMinCnt = this.pauseMinCnt + 1;
+        this.pauseHrCnt = this.pauseMinCnt + 1;
         return;
       default:
         return;
     }
   };
 
-  this.getCount = (mode) => {
+  this.getMinuteCount = (mode) => {
     switch (mode) {
       case MmmMode.monk:
         return this.monkMinCnt;
@@ -63,6 +67,21 @@ export function MmmTracker() {
         return this.marshmallowMinCnt;
       case MmmMode.pause:
         return this.pauseMinCnt;
+      default:
+        return;
+    }
+  };
+
+  this.getHourCount = (mode) => {
+    switch (mode) {
+      case MmmMode.monk:
+        return this.monkHrCnt;
+      case MmmMode.monster:
+        return this.monsterHrCnt;
+      case MmmMode.marshmallow:
+        return this.marshmallowHrCnt;
+      case MmmMode.pause:
+        return this.pauseHrCnt;
       default:
         return;
     }
