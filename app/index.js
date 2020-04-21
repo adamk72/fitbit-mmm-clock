@@ -11,7 +11,6 @@ if (!tracker) {
 
 clock.granularity = 'seconds';
 
-// Update Pomodoro view
 clock.addEventListener('tick', (evt) => {
   tracker.update();
   views.arcHandler(tracker);

@@ -18,7 +18,6 @@ export let hourArcs = [];
 if (minuteArcs.length === 0) {
   arcsList.forEach((arc) => {
     if (arc.type === 'minute') {
-      console.log(arc.name);
       minuteArcs.push(() => document.getElementById(arc.name));
     } else if (arc.type === 'hour') {
       hourArcs.push(() => document.getElementById(arc.name));

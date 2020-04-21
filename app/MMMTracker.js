@@ -26,7 +26,7 @@ export function MmmTracker() {
   };
 
   this.reset = () => {
-    console.log('reset');
+    // console.log('reset');
     this.monkCnt = 0;
     this.monsterCnt = 0;
     this.marshmallowCnt = 0;
@@ -34,7 +34,7 @@ export function MmmTracker() {
   };
 
   this.update = () => {
-    console.log('Curr Mode:' + this.currentMode);
+    // console.log('Curr Mode:' + this.currentMode);
     switch (this.currentMode) {
       case MmmMode.monk:
         this.monkMinCnt = this.monkMinCnt + 1;
