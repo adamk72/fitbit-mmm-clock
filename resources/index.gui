@@ -1,4 +1,5 @@
 <svg>
+<section>
      <svg>
       <image fill="fb-extra-dark-gray" id="Idle" class="mmm-mode-image" href = "icons/pause-base.png" width="25%" height="25%" x="50%-50" y="75%-50"/>
     </svg>
@@ -11,46 +12,48 @@
         <svg>
       <image fill="fb-white" id="Marshmallow" class="mmm-mode-image" href = "icons/marshmallow-base.png" width="25%" height="25%" x="50%-50" y="75%-50"/>
     </svg>
+    </section>
 
-<section id="hours-circle">
+
+<section id="inner-circle">
   <!-- pause arc-->
-  <arc id="pause-hArc" x="50%-99" y="50%-99" width="198" height="198" fill="fb-extra-dark-gray"
-    arc-width="10" start-angle="0" sweep-angle="360"/>
+  <arc id="pause-iArc" x="50%-99" y="50%-99" width="198" height="198" fill="fb-dark-gray"
+    arc-width="8" start-angle="0" sweep-angle="360"/>
 
   <!-- monk arc-->
-  <arc id="monk-hArc" x="50%-99" y="50%-99" width="198" height="198" fill="fb-peach"
-    arc-width="10" start-angle="0" sweep-angle="0">
+  <arc id="monk-iArc" x="50%-99" y="50%-99" width="198" height="198" fill="fb-peach"
+    arc-width="8" start-angle="0" sweep-angle="0">
     </arc>
 
   <!-- monster arc-->
-  <arc id="monster-hArc" x="50%-99" y="50%-99" width="198" height="198" fill="fb-red"
-    arc-width="10" start-angle="0" sweep-angle="0"/>
+  <arc id="monster-iArc" x="50%-99" y="50%-99" width="198" height="198" fill="fb-red"
+    arc-width="8" start-angle="0" sweep-angle="0"/>
 
   <!-- marshmallow arc-->
-  <arc id="marshmallow-hArc" x="50%-99" y="50%-99" width="198" height="198" fill="fb-white"
-    arc-width="10" start-angle="0" sweep-angle="0"/>
+  <arc id="marshmallow-iArc" x="50%-99" y="50%-99" width="198" height="198" fill="fb-white"
+    arc-width="8" start-angle="0" sweep-angle="0"/>
 </section>
-<section id="minutes-circle">
+<section id="outer-circle">
   <!-- pause arc-->
-  <arc id="pause-mArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-extra-dark-gray"
-    arc-width="10" start-angle="0" sweep-angle="360"/>
+  <arc id="pause-oArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-extra-dark-gray"
+    arc-width="5" start-angle="0" sweep-angle="360"/>
 
   <!-- monk arc-->
-  <arc id="monk-mArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-peach"
-    arc-width="10" start-angle="0" sweep-angle="0">
+  <arc id="monk-oArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-peach"
+    arc-width="5" start-angle="0" sweep-angle="0">
     </arc>
 
   <!-- monster arc-->
-  <arc id="monster-mArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-red"
-    arc-width="10" start-angle="0" sweep-angle="0"/>
+  <arc id="monster-oArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-red"
+    arc-width="5" start-angle="0" sweep-angle="0"/>
 
   <!-- marshmallow arc-->
-  <arc id="marshmallow-mArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-white"
-    arc-width="10" start-angle="0" sweep-angle="0"/>
+  <arc id="marshmallow-oArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-white"
+    arc-width="5" start-angle="0" sweep-angle="0"/>
 </section>
 <section id="buttons">
   <!-- TOP LEFT -->
-  <use id="btn-pause" href="#combo-button-upper-left" fill="fb-blue">
+  <use id="btn-pause" href="#combo-button-upper-left" fill="fb-extra-dark-gray">
     <set href="combo-button-icon" attributeName="href" to="icons/pause-base.png"/>
     <set href="combo-button-icon-press" attributeName="href" to="icons/pause-pressed.png"/>
     <set href="combo-button-stroke" attributeName="display" to="inline"/>

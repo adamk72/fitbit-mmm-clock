@@ -16,11 +16,9 @@ export function MmmTracker() {
   this.monkMinCnt = 0;
   this.monsterMinCnt = 0;
   this.marshmallowMinCnt = 0;
-  this.pauseMinCnt = 0;
   this.monkHrCnt = 0;
   this.monsterHrCnt = 0;
   this.marshmallowHrCnt = 0;
-  this.pauseHrCnt = 0;
 
   this.setCurrentMode = (mode) => {
     this.currentMode = mode;
@@ -34,18 +32,15 @@ export function MmmTracker() {
     this.monkMinCnt = 0;
     this.monsterMinCnt = 0;
     this.marshmallowMinCnt = 0;
-    this.pauseMinCnt = 0;
   };
 
   this.resetHours = () => {
     this.monkHrCnt = 0;
     this.monsterHrCnt = 0;
     this.marshmallowHrCnt = 0;
-    this.pauseHrCnt = 0;
   };
 
   this.update = () => {
-    // console.log('Curr Mode:' + this.currentMode);
     switch (this.currentMode) {
       case MmmMode.monk:
         this.monkHrCnt = this.monkHrCnt + DEGREE_INCREMENT;

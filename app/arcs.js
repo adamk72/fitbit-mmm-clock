@@ -1,43 +1,43 @@
 import document from 'document';
 import { MmmMode } from './tracker';
 
-export let minuteArcsItems = [
-  { name: 'monk-mArc', type: 'minute', mode: MmmMode.monk },
-  { name: 'monster-mArc', type: 'minute', mode: MmmMode.monster },
-  { name: 'marshmallow-mArc', type: 'minute', mode: MmmMode.marshmallow },
+export const outerArcsItems = [
+  { name: 'monk-oArc', mode: MmmMode.monk },
+  { name: 'monster-oArc', mode: MmmMode.monster },
+  { name: 'marshmallow-oArc', mode: MmmMode.marshmallow },
 ];
-export let hourArcsItems = [
-  { name: 'monk-hArc', type: 'hour', mode: MmmMode.monk },
-  { name: 'monster-hArc', type: 'hour', mode: MmmMode.monster },
-  { name: 'marshmallow-hArc', type: 'hour', mode: MmmMode.marshmallow },
+export const innerArcsItems = [
+  { name: 'monk-iArc', mode: MmmMode.monk },
+  { name: 'monster-iArc', mode: MmmMode.monster },
+  { name: 'marshmallow-iArc', mode: MmmMode.marshmallow },
 ];
 
-export let minuteArcs = [];
-export let hourArcs = [];
+export let outerArcs = [];
+export let innerArcs = [];
 
-initializeMinutes();
-initializeHours();
+initializeOuterRing();
+initializeInnerRing();
 
-export function initializeMinutes() {
-  if (minuteArcs.length === 0) {
-    minuteArcsItems.forEach((arc) => {
-      minuteArcs.push(() => document.getElementById(arc.name));
+export function initializeOuterRing() {
+  if (outerArcs.length === 0) {
+    outerArcsItems.forEach((arc) => {
+      outerArcs.push(() => document.getElementById(arc.name));
     });
   }
 }
 
-export function initializeHours() {
-  if (hourArcs.length === 0) {
-    hourArcsItems.forEach((arc) => {
-      hourArcs.push(() => document.getElementById(arc.name));
+export function initializeInnerRing() {
+  if (innerArcs.length === 0) {
+    innerArcsItems.forEach((arc) => {
+      innerArcs.push(() => document.getElementById(arc.name));
     });
   }
 }
 
-export function resetHours() {
-  hourArcs = [];
+export function resetInnerRing() {
+  innerArcs = [];
 }
 
-export function resetMinutes() {
-  minuteArcs = [];
+export function resetOuterRing() {
+  outerArcs = [];
 }

@@ -1,6 +1,5 @@
 import document from 'document';
 import * as arcs from './arcs';
-import { MmmMode } from './tracker';
 import * as utils from './utils.js';
 
 /* Mode Views */
@@ -12,7 +11,7 @@ export function update(tracker) {
   let currentMode = tracker.getCurrentMode();
   // modeText.text = currentMode;
 
-  modeImages.forEach((img, index) => {
+  modeImages.forEach((img) => {
     if (currentMode === img.id) img.style.display = 'inline';
     else img.style.display = 'none';
   });
@@ -30,8 +29,8 @@ export function datetime(date) {
 }
 
 /* Arc Views */
-const MIN_TEST_MULT = 5;
-const HR_TEST_MULT = MIN_TEST_MULT / 5;
+const INNER_RING_MULT = 5;
+const OUTER_RING_MULT = INNER_RING_MULT / 5;
 
 function setStartAngles(arcList) {
   arcList[0]().startAngle = 0;
@@ -40,38 +39,33 @@ function setStartAngles(arcList) {
 }
 
 export function arcHandler(tracker) {
-  // Initialize the arcs arrays if they doesn't exist yet.
-
   let minTotal = tracker.countMinTotal();
-  if (minTotal * MIN_TEST_MULT >= 360) {
+  if (minTotal * INNER_RING_MULT >= 360) {
     tracker.resetMinutes();
-    arcs.resetMinutes();
-    console.log('minutes reset: ' + tracker.getMinuteCount(MmmMode.monk));
+    arcs.resetInnerRing();
   }
 
   let hrTotal = tracker.countHrTotal();
-  if (hrTotal * HR_TEST_MULT >= 360) {
+  if (hrTotal * OUTER_RING_MULT >= 360) {
     tracker.resetHours();
-    arcs.resetHours();
+    arcs.resetOuterRing();
   }
 
-  if (arcs.minuteArcs.length === 0) arcs.initializeMinutes();
-  if (arcs.hourArcs.length === 0) arcs.initializeHours();
+  // Initialize the arcs arrays if they doesn't exist yet.
+  if (arcs.innerArcs.length === 0) arcs.initializeInnerRing();
+  if (arcs.outerArcs.length === 0) arcs.initializeOuterRing();
 
   // Get the sweep angle by mode
-  arcs.minuteArcs.forEach((arc, index) => {
+  arcs.innerArcs.forEach((arc, index) => {
     arc().sweepAngle =
-      (tracker.getMinuteCount(arcs.minuteArcsItems[index].mode) *
-        MIN_TEST_MULT) %
-      360;
+      tracker.getMinuteCount(arcs.outerArcsItems[index].mode) * INNER_RING_MULT;
   });
 
-  arcs.hourArcs.forEach((arc, index) => {
+  arcs.outerArcs.forEach((arc, index) => {
     arc().sweepAngle =
-      (tracker.getHourCount(arcs.hourArcsItems[index].mode) * HR_TEST_MULT) %
-      360;
+      tracker.getHourCount(arcs.innerArcsItems[index].mode) * OUTER_RING_MULT;
   });
 
-  setStartAngles(arcs.minuteArcs);
-  setStartAngles(arcs.hourArcs);
+  setStartAngles(arcs.innerArcs);
+  setStartAngles(arcs.outerArcs);
 }
