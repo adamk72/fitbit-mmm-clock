@@ -2,6 +2,7 @@ import * as buttons from './buttons';
 import { MmmTracker, MmmMode } from './tracker';
 import * as views from './views';
 import clock from 'clock';
+import { updateClock } from './analog-pointers';
 
 let tracker = new MmmTracker();
 if (!tracker) {
@@ -15,6 +16,7 @@ clock.granularity = 'seconds';
 clock.addEventListener('tick', (evt) => {
   views.datetime(evt.date);
   views.update(tracker);
+  updateClock();
 });
 
 clock.addEventListener('tick', (evt) => {
