@@ -14,7 +14,7 @@ clock.granularity = 'seconds';
 // Update current time
 clock.addEventListener('tick', (evt) => {
   views.datetime(evt.date);
-  views.modetext(tracker.getCurrentMode());
+  views.update(tracker);
 });
 
 clock.addEventListener('tick', (evt) => {

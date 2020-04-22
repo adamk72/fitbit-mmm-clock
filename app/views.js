@@ -5,17 +5,25 @@ import * as utils from './utils.js';
 
 /* Mode Views */
 
-let modeText = () => document.getElementById('mmm-mode-text');
+// let modeText = document.getElementById('mmm-mode-text');
+let modeImages = document.getElementsByClassName('mmm-mode-image');
 
-export function modetext(mode) {
-  modeText().text = String(mode);
+export function update(tracker) {
+  let currentMode = tracker.getCurrentMode();
+  // modeText.text = currentMode;
+
+  modeImages.forEach((img, index) => {
+    if (currentMode === img.id) img.style.display = 'inline';
+    else img.style.display = 'none';
+  });
 }
-/* Time Views */
-let timeText = () => document.getElementById('time-text');
+
+export /* Time Views */
+let timeText = document.getElementById('time-text');
 
 export function datetime(date) {
   /* Takes a Date object to update time related views */
-  timeText().text =
+  timeText.text =
     utils.toMonoDigits(date.getHours()) +
     ':' +
     utils.toMonoDigits(date.getMinutes());
