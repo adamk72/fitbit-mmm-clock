@@ -89,10 +89,10 @@
 <section>  
 <svg id="analog-pointers">
   <g id="inner-pointer" pointer-events="visible" transform="translate(50%,50%)">
-    <rect x="$-3" y="-115" width="6" height="6" fill="fb-cerulean" />
+    <rect x="$-3" y="-117" width="6" height="6" fill="fb-cerulean" />
   </g>
   <g id="outer-pointer" pointer-events="visible" transform="translate(50%,50%)">
-    <rect x="$-2" y="-100" width="4" height="4" fill="fb-magenta" />
+    <rect x="$-2" y="-101" width="4" height="4" fill="fb-magenta" />
   </g>
   </svg>
 
