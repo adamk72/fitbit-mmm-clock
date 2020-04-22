@@ -1,5 +1,4 @@
 import document from 'document';
-import { outerArcs } from './arcs';
 
 let outerPtr = document.getElementById('outer-pointer');
 let innerPtr = document.getElementById('inner-pointer');

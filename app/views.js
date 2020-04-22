@@ -29,8 +29,10 @@ export function datetime(date) {
 }
 
 /* Arc Views */
-const INNER_RING_MULT = 5;
-const OUTER_RING_MULT = INNER_RING_MULT / 5;
+
+// testing multipliers to speed up the process.
+const INNER_RING_MULT = 1;
+const OUTER_RING_MULT = INNER_RING_MULT / 1;
 
 function setStartAngles(arcList) {
   arcList[0]().startAngle = 0;

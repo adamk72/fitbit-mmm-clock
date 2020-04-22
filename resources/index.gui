@@ -81,9 +81,6 @@
     <text id="time-text" font-family="System-Regular" font-size="56" text-anchor="middle" x="50%" y="50%" fill="white">
       22:38
     </text>
-    <!-- <text id="mmm-mode-text" font-family="System-Regular" font-size="28" text-anchor="middle" x="50%" y="75%" fill="white">
-      Idle
-    </text> -->
   </section>
 
 <section>  
