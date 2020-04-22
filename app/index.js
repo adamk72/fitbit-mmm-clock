@@ -1,12 +1,23 @@
 import * as buttons from './buttons';
-import { MmmTracker, MmmMode } from './tracker';
+import { MmmTracker } from './tracker';
+import { MmmMode } from './modes';
+
 import * as views from './views';
 import clock from 'clock';
 import { updateClock } from './analog-pointers';
+import { CONFIG } from './config';
+import { me } from 'appbit';
 
+// me.addEventListener('unload', (evt) => {
+//   //tracker.saveToFile(CONFIG.MmmTrackerPath);
+// });
+
+//let tracker = new MmmTracker.loadFromFile(CONFIG.MmmTrackerPath);
 let tracker = new MmmTracker();
 if (!tracker) {
-  // Failed to create tracker; trying again...
+  console.log(
+    ' Failed to load tracker from file; trying again with new tracker'
+  );
   tracker = new MmmTracker();
 }
 

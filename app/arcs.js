@@ -1,5 +1,5 @@
 import document from 'document';
-import { MmmMode } from './tracker';
+import { MmmMode } from './modes';
 
 export const outerArcsItems = [
   { name: 'monk-oArc', mode: MmmMode.monk },
