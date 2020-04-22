@@ -16,7 +16,7 @@ clock.granularity = 'seconds';
 clock.addEventListener('tick', (evt) => {
   views.datetime(evt.date);
   views.update(tracker);
-  updateClock();
+  updateClock(tracker);
 });
 
 clock.addEventListener('tick', (evt) => {

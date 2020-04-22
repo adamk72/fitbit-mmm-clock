@@ -20,6 +20,18 @@ export function MmmTracker() {
   this.monsterHrCnt = 0;
   this.marshmallowHrCnt = 0;
 
+  this.innerColor = 'fb-blue';
+  this.outerColor = 'fb-blue';
+
+  // Ideally, this should be located elsewhere
+  this.getInnerColor = () => {
+    return this.innerColor;
+  };
+
+  this.getOuterColor = () => {
+    return this.outerColor;
+  };
+
   this.setCurrentMode = (mode) => {
     this.currentMode = mode;
   };
@@ -45,14 +57,38 @@ export function MmmTracker() {
       case MmmMode.monk:
         this.monkHrCnt = this.monkHrCnt + DEGREE_INCREMENT;
         this.monkMinCnt = this.monkMinCnt + DEGREE_INCREMENT;
+        this.monkHrCnt > this.monsterHrCnt &&
+        this.monkHrCnt > this.marshmallowHrCnt
+          ? (this.outerColor = 'fb-peach')
+          : null;
+        this.monkMinCnt > this.monsterMinCnt &&
+        this.monkMinCnt > this.marshmallowMinCnt
+          ? (this.innerColor = 'fb-peach')
+          : null;
         return;
       case MmmMode.monster:
         this.monsterHrCnt = this.monsterHrCnt + DEGREE_INCREMENT;
         this.monsterMinCnt = this.monsterMinCnt + DEGREE_INCREMENT;
+        this.monsterHrCnt > this.monkHrCnt &&
+        this.monsterHrCnt > this.marshmallowHrCnt
+          ? (this.outerColor = 'fb-red')
+          : null;
+        this.monsterMinCnt > this.monkMinCnt &&
+        this.monsterMinCnt > this.marshmallowMinCnt
+          ? (this.innerColor = 'fb-red')
+          : null;
         return;
       case MmmMode.marshmallow:
         this.marshmallowHrCnt = this.marshmallowHrCnt + DEGREE_INCREMENT;
         this.marshmallowMinCnt = this.marshmallowMinCnt + DEGREE_INCREMENT;
+        this.marshmallowHrCnt > this.monsterHrCnt &&
+        this.marshmallowHrCnt > this.monkHrCnt
+          ? (this.outerColor = 'fb-white')
+          : null;
+        this.marshmallowMinCnt > this.monsterMinCnt &&
+        this.marshmallowMinCnt > this.monkMinCnt
+          ? (this.innerColor = 'fb-white')
+          : null;
         return;
       case MmmMode.pause:
       default:
