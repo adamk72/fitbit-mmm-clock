@@ -7,14 +7,6 @@ export function zfill(i) {
   }
 }
 
-export function secondsToClock(secs, mono = false) {
-  /* Convert seconds to clock display string in 'HH:MM' */
-  let toStr = mono ? toMonoDigits : zfill;
-  let minPart = Math.floor(secs / 60);
-  let secPart = secs % 60;
-  return toStr(minPart) + ':' + toStr(secPart);
-}
-
 export function toMonoDigits(num, zfill = true) {
   /* Convert a number to a special monospace number.
   
