@@ -7,9 +7,8 @@ import * as utils from './utils.js';
 // let modeText = document.getElementById('mmm-mode-text');
 let modeImages = document.getElementsByClassName('mmm-mode-image');
 
-export function update(tracker) {
+export function updateModeAndImages(tracker) {
   let currentMode = tracker.getCurrentMode();
-  // modeText.text = currentMode;
 
   modeImages.forEach((img) => {
     if (currentMode === img.id) img.style.display = 'inline';
@@ -20,7 +19,7 @@ export function update(tracker) {
 export /* Time Views */
 let timeText = document.getElementById('time-text');
 
-export function datetime(date) {
+export function updateDateTimeOnTick(date) {
   /* Takes a Date object to update time related views */
   timeText.text =
     utils.toMonoDigits(date.getHours()) +
@@ -40,7 +39,7 @@ function setStartAngles(arcList) {
   arcList[2]().startAngle = arcList[0]().sweepAngle + arcList[1]().sweepAngle;
 }
 
-export function arcHandler(tracker) {
+export function updateArcsOnTick(tracker) {
   let minTotal = tracker.countMinTotal();
   if (minTotal * INNER_RING_MULT >= 360) {
     tracker.resetMinutes();

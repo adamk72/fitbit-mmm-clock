@@ -1,4 +1,5 @@
-const DEGREE_INCREMENT = 360 / 60;
+const HOUR_DEGREE_INCREMENT = 360 / 60 / 60; // it updates in seconds.
+const DAY_DEGREE_INCREMENT = 360 / 24 / 60 / 60;
 export const MmmMode = {
   monk: 'Monk',
   monster: 'Monster',
@@ -52,11 +53,11 @@ export function MmmTracker() {
     this.marshmallowHrCnt = 0;
   };
 
-  this.update = () => {
+  this.updateOnTick = () => {
     switch (this.currentMode) {
       case MmmMode.monk:
-        this.monkHrCnt = this.monkHrCnt + DEGREE_INCREMENT;
-        this.monkMinCnt = this.monkMinCnt + DEGREE_INCREMENT;
+        this.monkMinCnt = this.monkMinCnt + HOUR_DEGREE_INCREMENT;
+        this.monkHrCnt = this.monkHrCnt + DAY_DEGREE_INCREMENT;
         this.monkHrCnt > this.monsterHrCnt &&
         this.monkHrCnt > this.marshmallowHrCnt
           ? (this.outerColor = 'fb-peach')
@@ -67,8 +68,8 @@ export function MmmTracker() {
           : null;
         return;
       case MmmMode.monster:
-        this.monsterHrCnt = this.monsterHrCnt + DEGREE_INCREMENT;
-        this.monsterMinCnt = this.monsterMinCnt + DEGREE_INCREMENT;
+        this.monsterMinCnt = this.monsterMinCnt + HOUR_DEGREE_INCREMENT;
+        this.monsterHrCnt = this.monsterHrCnt + DAY_DEGREE_INCREMENT;
         this.monsterHrCnt > this.monkHrCnt &&
         this.monsterHrCnt > this.marshmallowHrCnt
           ? (this.outerColor = 'fb-red')
@@ -79,8 +80,8 @@ export function MmmTracker() {
           : null;
         return;
       case MmmMode.marshmallow:
-        this.marshmallowHrCnt = this.marshmallowHrCnt + DEGREE_INCREMENT;
-        this.marshmallowMinCnt = this.marshmallowMinCnt + DEGREE_INCREMENT;
+        this.marshmallowMinCnt = this.marshmallowMinCnt + HOUR_DEGREE_INCREMENT;
+        this.marshmallowHrCnt = this.marshmallowHrCnt + DAY_DEGREE_INCREMENT;
         this.marshmallowHrCnt > this.monsterHrCnt &&
         this.marshmallowHrCnt > this.monkHrCnt
           ? (this.outerColor = 'fb-white')
