@@ -1,6 +1,6 @@
 <svg>
      <svg>
-      <image fill="fb-blue" id="Idle" class="mmm-mode-image" href = "icons/pause-base.png" width="25%" height="25%" x="50%-50" y="75%-50"/>
+      <image fill="fb-extra-dark-gray" id="Idle" class="mmm-mode-image" href = "icons/pause-base.png" width="25%" height="25%" x="50%-50" y="75%-50"/>
     </svg>
     <svg>
       <image fill="fb-peach" id="Monk" class="mmm-mode-image" href = "icons/monk-base.png" width="25%" height="25%" x="50%-50" y="75%-50"/>
@@ -14,8 +14,8 @@
 
 <section id="hours-circle">
   <!-- pause arc-->
-  <arc id="pause-hArc" x="50%-99" y="50%-99" width="198" height="198" fill="fb-blue"
-    arc-width="10" start-angle="0" sweep-angle="0"/>
+  <arc id="pause-hArc" x="50%-99" y="50%-99" width="198" height="198" fill="fb-extra-dark-gray"
+    arc-width="10" start-angle="0" sweep-angle="360"/>
 
   <!-- monk arc-->
   <arc id="monk-hArc" x="50%-99" y="50%-99" width="198" height="198" fill="fb-peach"
@@ -32,8 +32,8 @@
 </section>
 <section id="minutes-circle">
   <!-- pause arc-->
-  <arc id="pause-mArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-blue"
-    arc-width="10" start-angle="0" sweep-angle="0"/>
+  <arc id="pause-mArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-extra-dark-gray"
+    arc-width="10" start-angle="0" sweep-angle="360"/>
 
   <!-- monk arc-->
   <arc id="monk-mArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-peach"

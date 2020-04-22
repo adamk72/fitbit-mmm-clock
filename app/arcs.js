@@ -1,17 +1,15 @@
 import document from 'document';
-import { MmmMode } from './MmmTracker';
+import { MmmMode } from './tracker';
 
 export let minuteArcsItems = [
   { name: 'monk-mArc', type: 'minute', mode: MmmMode.monk },
   { name: 'monster-mArc', type: 'minute', mode: MmmMode.monster },
   { name: 'marshmallow-mArc', type: 'minute', mode: MmmMode.marshmallow },
-  { name: 'pause-mArc', type: 'minute', mode: MmmMode.pause },
 ];
 export let hourArcsItems = [
   { name: 'monk-hArc', type: 'hour', mode: MmmMode.monk },
   { name: 'monster-hArc', type: 'hour', mode: MmmMode.monster },
   { name: 'marshmallow-hArc', type: 'hour', mode: MmmMode.marshmallow },
-  { name: 'pause-hArc', type: 'hour', mode: MmmMode.pause },
 ];
 
 export let minuteArcs = [];

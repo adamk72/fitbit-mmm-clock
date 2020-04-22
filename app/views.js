@@ -1,6 +1,6 @@
 import document from 'document';
 import * as arcs from './arcs';
-import { MmmMode } from './MmmTracker';
+import { MmmMode } from './tracker';
 import * as utils from './utils.js';
 
 /* Mode Views */
@@ -30,15 +30,13 @@ export function datetime(date) {
 }
 
 /* Arc Views */
-const MIN_TEST_MULT = 45;
+const MIN_TEST_MULT = 5;
 const HR_TEST_MULT = MIN_TEST_MULT / 5;
 
 function setStartAngles(arcList) {
   arcList[0]().startAngle = 0;
   arcList[1]().startAngle = arcList[0]().sweepAngle;
   arcList[2]().startAngle = arcList[0]().sweepAngle + arcList[1]().sweepAngle;
-  arcList[3]().startAngle =
-    arcList[0]().sweepAngle + arcList[1]().sweepAngle + arcList[2]().sweepAngle;
 }
 
 export function arcHandler(tracker) {
@@ -55,7 +53,6 @@ export function arcHandler(tracker) {
   if (hrTotal * HR_TEST_MULT >= 360) {
     tracker.resetHours();
     arcs.resetHours();
-    console.log('hours reset: ' + tracker.getHourCount(MmmMode.monk));
   }
 
   if (arcs.minuteArcs.length === 0) arcs.initializeMinutes();
@@ -64,12 +61,15 @@ export function arcHandler(tracker) {
   // Get the sweep angle by mode
   arcs.minuteArcs.forEach((arc, index) => {
     arc().sweepAngle =
-      tracker.getMinuteCount(arcs.minuteArcsItems[index].mode) * MIN_TEST_MULT;
+      (tracker.getMinuteCount(arcs.minuteArcsItems[index].mode) *
+        MIN_TEST_MULT) %
+      360;
   });
 
   arcs.hourArcs.forEach((arc, index) => {
     arc().sweepAngle =
-      tracker.getHourCount(arcs.hourArcsItems[index].mode) * HR_TEST_MULT;
+      (tracker.getHourCount(arcs.hourArcsItems[index].mode) * HR_TEST_MULT) %
+      360;
   });
 
   setStartAngles(arcs.minuteArcs);

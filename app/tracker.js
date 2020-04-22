@@ -1,3 +1,4 @@
+const DEGREE_INCREMENT = 360 / 60;
 export const MmmMode = {
   monk: 'Monk',
   monster: 'Monster',
@@ -47,22 +48,18 @@ export function MmmTracker() {
     // console.log('Curr Mode:' + this.currentMode);
     switch (this.currentMode) {
       case MmmMode.monk:
-        this.monkHrCnt = this.monkHrCnt + 1;
-        this.monkMinCnt = this.monkMinCnt + 1;
-        console.log('min/hr: ' + this.monkMinCnt + '/' + this.monkHrCnt);
+        this.monkHrCnt = this.monkHrCnt + DEGREE_INCREMENT;
+        this.monkMinCnt = this.monkMinCnt + DEGREE_INCREMENT;
         return;
       case MmmMode.monster:
-        this.monsterHrCnt = this.monsterHrCnt + 1;
-        this.monsterMinCnt = this.monsterMinCnt + 1;
+        this.monsterHrCnt = this.monsterHrCnt + DEGREE_INCREMENT;
+        this.monsterMinCnt = this.monsterMinCnt + DEGREE_INCREMENT;
         return;
       case MmmMode.marshmallow:
-        this.marshmallowHrCnt = this.marshmallowHrCnt + 1;
-        this.marshmallowMinCnt = this.marshmallowMinCnt + 1;
+        this.marshmallowHrCnt = this.marshmallowHrCnt + DEGREE_INCREMENT;
+        this.marshmallowMinCnt = this.marshmallowMinCnt + DEGREE_INCREMENT;
         return;
       case MmmMode.pause:
-        this.pauseHrCnt = this.pauseHrCnt + 1;
-        this.pauseMinCnt = this.pauseMinCnt + 1;
-        return;
       default:
         return;
     }
@@ -77,7 +74,6 @@ export function MmmTracker() {
       case MmmMode.marshmallow:
         return this.marshmallowMinCnt;
       case MmmMode.pause:
-        return this.pauseMinCnt;
       default:
         return;
     }
@@ -92,27 +88,16 @@ export function MmmTracker() {
       case MmmMode.marshmallow:
         return this.marshmallowHrCnt;
       case MmmMode.pause:
-        return this.pauseHrCnt;
       default:
         return;
     }
   };
 
   this.countMinTotal = () => {
-    return (
-      this.monkMinCnt +
-      this.marshmallowMinCnt +
-      this.monsterMinCnt +
-      this.pauseMinCnt
-    );
+    return this.monkMinCnt + this.marshmallowMinCnt + this.monsterMinCnt;
   };
 
   this.countHrTotal = () => {
-    return (
-      this.monkHrCnt +
-      this.marshmallowHrCnt +
-      this.monsterHrCnt +
-      this.pauseHrCnt
-    );
+    return this.monkHrCnt + this.marshmallowHrCnt + this.monsterHrCnt;
   };
 }

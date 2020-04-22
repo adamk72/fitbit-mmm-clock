@@ -1,5 +1,5 @@
 import * as buttons from './buttons';
-import { MmmTracker, MmmMode } from './MmmTracker';
+import { MmmTracker, MmmMode } from './tracker';
 import * as views from './views';
 import clock from 'clock';
 
