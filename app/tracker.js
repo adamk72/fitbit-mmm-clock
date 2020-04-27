@@ -21,6 +21,16 @@ export function MmmTracker() {
   this.innerColor = 'fb-blue';
   this.outerColor = 'fb-blue';
 
+  this.justReset = false;
+
+  this.getJustReset = () => {
+    return this.justReset;
+  };
+
+  this.setJustReset = (bool) => {
+    this.justReset = bool;
+  };
+
   // Ideally, this should be located elsewhere
   this.getInnerColor = () => {
     return this.innerColor;

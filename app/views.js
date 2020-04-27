@@ -42,13 +42,28 @@ function setStartAngles(arcList) {
   arcList[2]().startAngle = arcList[0]().sweepAngle + arcList[1]().sweepAngle;
 }
 
-export function updateArcsOnTick(tracker) {
-  let minTotal = tracker.countMinTotal();
-  if (minTotal * INNER_RING_MULT >= 360) {
-    tracker.resetMinutes();
-    arcs.resetInnerRing();
+export function updateArcsOnTick(tracker, date) {
+  if (
+    date.getHours() === 0 &&
+    date.getSeconds <= 5 &&
+    !tracker.getJustReset()
+  ) {
+    tracker.resetHours();
+    arcs.resetOuterRing();
+    tracker.resetHours();
+    arcs.resetOuterRing();
+    tracker.setJustReset(true);
+  } else {
+    setTimeout(() => {
+      tracker.setJustReset(false);
+    }, 5500);
   }
 
+  let minTotal = tracker.countMinTotal();
+  if (minTotal * INNER_RING_MULT >= 360) {
+    tracker.resetHours();
+    arcs.resetOuterRing();
+  }
   let hrTotal = tracker.countHrTotal();
   if (hrTotal * OUTER_RING_MULT >= 360) {
     tracker.resetHours();

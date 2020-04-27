@@ -32,7 +32,7 @@ clock.addEventListener('tick', (evt) => {
 
 clock.addEventListener('tick', (evt) => {
   tracker.updateOnTick();
-  views.updateArcsOnTick(tracker);
+  views.updateArcsOnTick(tracker, evt.date);
 });
 
 buttons.monk().addEventListener('activate', (evt) => {
