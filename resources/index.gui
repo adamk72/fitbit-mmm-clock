@@ -1,16 +1,16 @@
 <svg>
 <section>
      <svg>
-      <image fill="fb-extra-dark-gray" id="Idle" class="mmm-mode-image" href = "icons/pause-base.png" width="18%" height="18%" x="50%-30" y="50%+22"/>
+      <image fill="fb-extra-dark-gray" id="Idle" class="mmm-mode-image" href = "icons/pause-base.png" width="18%" height="18%" x="50%-30" y="50%+32"/>
     </svg>
     <svg>
-      <image fill="fb-peach" id="Monk" class="mmm-mode-image" href = "icons/monk-base.png" width="25%" height="25%" x="50%-40" y="50%+20"/>
+      <image fill="fb-peach" id="Monk" class="mmm-mode-image" href = "icons/monk-base.png" width="25%" height="25%" x="50%-40" y="50%+30"/>
     </svg>
     <svg>
-      <image fill="fb-red" id="Monster" class="mmm-mode-image" href = "icons/dragon-base.png" width="25%" height="25%" x="50%-40" y="50%+20"/>
+      <image fill="fb-red" id="Monster" class="mmm-mode-image" href = "icons/dragon-base.png" width="25%" height="25%" x="50%-40" y="50%+30"/>
     </svg>
         <svg>
-      <image fill="fb-white" id="Marshmallow" class="mmm-mode-image" href = "icons/marshmallow-base.png" width="25%" height="25%" x="50%-45" y="50%+20"/>
+      <image fill="fb-white" id="Marshmallow" class="mmm-mode-image" href = "icons/marshmallow-base.png" width="25%" height="25%" x="50%-45" y="50%+30"/>
     </svg>
     </section>
 
@@ -78,8 +78,11 @@
   </section>
 
   <section id="circle-center">
-    <text id="time-text" font-family="System-Regular" font-size="56" text-anchor="middle" x="50%" y="50%" fill="white">
+    <text id="time-text" font-family="System-Regular" font-size="56" text-anchor="middle" x="50%" y="50%-20" fill="white">
       22:38
+    </text>
+    <text id="date-text" font-family="System-Regular" font-size="28" text-anchor="middle" x="50%" y="50%+15" fill="white">
+      April, 02
     </text>
   </section>
 

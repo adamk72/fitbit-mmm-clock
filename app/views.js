@@ -18,6 +18,7 @@ export function updateModeAndImages(tracker) {
 
 export /* Time Views */
 let timeText = document.getElementById('time-text');
+let dateText = document.getElementById('date-text');
 
 export function updateDateTimeOnTick(date) {
   /* Takes a Date object to update time related views */
@@ -25,6 +26,8 @@ export function updateDateTimeOnTick(date) {
     utils.toMonoDigits(date.getHours()) +
     ':' +
     utils.toMonoDigits(date.getMinutes());
+
+  dateText = date.toString();
 }
 
 /* Arc Views */
