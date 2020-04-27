@@ -2,6 +2,22 @@ import document from 'document';
 import * as arcs from './arcs';
 import * as utils from './utils.js';
 
+const months = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
+const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
 /* Mode Views */
 
 // let modeText = document.getElementById('mmm-mode-text');
@@ -27,7 +43,12 @@ export function updateDateTimeOnTick(date) {
     ':' +
     utils.toMonoDigits(date.getMinutes());
 
-  dateText = date.toString();
+  dateText.text =
+    days[date.getDay().toString()] +
+    ' ' +
+    months[date.getMonth().toString()] +
+    ', ' +
+    date.getDate().toString();
 }
 
 /* Arc Views */
