@@ -1,6 +1,8 @@
 // import { outerArcs, innerArcs } from './arcs';
 import { MmmMode } from './modes';
 import * as fs from 'fs';
+import { CONFIG } from './config';
+import { format } from 'url';
 
 const HOUR_DEGREE_INCREMENT = 360 / 60 / 60; // it updates in seconds.
 const DAY_DEGREE_INCREMENT = 360 / 24 / 60 / 60;
@@ -161,6 +163,8 @@ export function MmmTracker(settings) {
         marshmallowHrCnt: this.marshmallowMinCnt,
       },
     };
+    console.log(storedObj.settings.currentMode);
+    console.log(storedObj.settings.monkMinCnt);
     fs.writeFileSync(path, storedObj, 'cbor');
   };
 
@@ -188,12 +192,19 @@ export function MmmTracker(settings) {
 MmmTracker.loadFromFile = (path) => {
   try {
     let store = fs.readFileSync(path, 'cbor');
-    if (store) {
+    if (
+      store.settings.currentMode != undefined ||
+      store.settings.currentMode != null
+    ) {
       let tracker = new MmmTracker(store.settings);
 
       return tracker;
+    } else {
+      return null;
     }
   } catch (e) {
-    return null;
+    fs.writeFileSync(CONFIG.MmmTrackerPath, CONFIG.settings, 'cbor');
+    let tracker = new MmmTracker(CONFIG.settings);
+    return tracker;
   }
 };

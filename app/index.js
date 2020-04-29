@@ -22,6 +22,7 @@ me.addEventListener('unload', (evt) => {
 // }
 
 let tracker = new MmmTracker.loadFromFile(CONFIG.MmmTrackerPath);
+
 //let tracker = new MmmTracker(CONFIG.settings);
 if (!tracker) {
   console.log(
