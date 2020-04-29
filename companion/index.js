@@ -1,1 +1,1 @@
-.log('Companion');
+console.log('Companion');
