@@ -1,5 +1,6 @@
 // import { outerArcs, innerArcs } from './arcs';
 import { MmmMode } from './modes';
+import * as fs from 'fs';
 
 const HOUR_DEGREE_INCREMENT = 360 / 60 / 60; // it updates in seconds.
 const DAY_DEGREE_INCREMENT = 360 / 24 / 60 / 60;
@@ -9,14 +10,14 @@ export const MmmTimerState = {
   paused: 'paused',
 };
 
-export function MmmTracker() {
-  this.currentMode = MmmMode.pause;
-  this.monkMinCnt = 0;
-  this.monsterMinCnt = 0;
-  this.marshmallowMinCnt = 0;
-  this.monkHrCnt = 0;
-  this.monsterHrCnt = 0;
-  this.marshmallowHrCnt = 0;
+export function MmmTracker(settings) {
+  this.currentMode = settings.currentMode;
+  this.monkMinCnt = settings.monkMinCnt;
+  this.monsterMinCnt = settings.monsterMinCnt;
+  this.marshmallowMinCnt = settings.marshmallowMinCnt;
+  this.monkHrCnt = settings.monkHrCnt;
+  this.monsterHrCnt = settings.monsterHrCnt;
+  this.marshmallowHrCnt = settings.marshmallowHrCnt;
 
   this.innerColor = 'fb-blue';
   this.outerColor = 'fb-blue';
@@ -148,72 +149,51 @@ export function MmmTracker() {
     return this.monkHrCnt + this.marshmallowHrCnt + this.monsterHrCnt;
   };
 
-  // this.saveToFile = (path) => {
-  //   let storedObj = {
-  //     modeStates: {
-  //       mode: this.getCurrentMode,
-  //       innerColor: this.getInnerColor,
-  //       outerColor: this.getOuterColor,
-  //     },
-  //     // for now, these have to be in order.
-  //     innerRingStates: {
-  //       monk: {
-  //         sweepAngle: innerArcs[0].sweepAngle,
-  //         startAngle: innerArcs[0].startAngle,
-  //       },
-  //       monster: {
-  //         sweepAngle: innerArcs[1].sweepAngle,
-  //         startAngle: innerArcs[1].startAngle,
-  //       },
-  //       marshmallow: {
-  //         sweepAngle: innerArcs[2].sweepAngle,
-  //         startAngle: innerArcs[2].startAngle,
-  //       },
-  //     },
-  //     outerRingStates: {
-  //       monk: {
-  //         sweepAngle: outerArcs[0].sweepAngle,
-  //         startAngle: outerArcs[0].startAngle,
-  //       },
-  //       monster: {
-  //         sweepAngle: outerArcs[1].sweepAngle,
-  //         startAngle: outerArcs[1].startAngle,
-  //       },
-  //       marshmallow: {
-  //         sweepAngle: outerArcs[2].sweepAngle,
-  //         startAngle: outerArcs[2].startAngle,
-  //       },
-  //     },
-  //   };
-  //   fs.writeFileSync(path, storedObj, 'cbor');
-  // };
+  this.saveToFile = (path) => {
+    let storedObj = {
+      settings: {
+        currentMode: this.currentMode,
+        monkMinCnt: this.monkMinCnt,
+        monsterMinCnt: this.monsterMinCnt,
+        marshmallowMinCnt: this.marshmallowMinCnt,
+        monkHrCnt: this.marshmallowMinCnt,
+        monsterHrCnt: this.marshmallowMinCnt,
+        marshmallowHrCnt: this.marshmallowMinCnt,
+      },
+    };
+    fs.writeFileSync(path, storedObj, 'cbor');
+  };
+
+  this.monkMin = (m) => {
+    this.monkMinCnt = m;
+  };
+  this.monsterMin = (m) => {
+    this.monsterMinCnt = m;
+  };
+  this.marshmallowMin = (m) => {
+    this.marshmallowMinCnt = m;
+  };
+
+  this.monkHr = (m) => {
+    this.monkHrCnt = m;
+  };
+  this.monsterHr = (m) => {
+    this.monsterHrCnt = m;
+  };
+  this.marshmallowHr = (m) => {
+    this.marshmallowHrCnt = m;
+  };
 }
 
-// MmmTracker.loadFromFile = (path) => {
-//   try {
-//     let store = fs.readFileSync(path, 'cbor');
-//     let tracker = new MmmTracker();
+MmmTracker.loadFromFile = (path) => {
+  try {
+    let store = fs.readFileSync(path, 'cbor');
+    if (store) {
+      let tracker = new MmmTracker(store.settings);
 
-//     tracker.setCurrentMode(store.modeStates.mode);
-//     tracker.setInnerColor(store.modeStates.innerColor);
-//     tracker.setOuterColor(store.modeStates.outerColor);
-
-//     innerArcs[0].sweepAngle = store.innerRingStates.monk.sweepAngle;
-//     innerArcs[0].startAngle = store.innerRingStates.monk.startAngle;
-//     innerArcs[1].sweepAngle = store.innerRingStates.monster.sweepAngle;
-//     innerArcs[1].startAngle = store.innerRingStates.monster.startAngle;
-//     innerArcs[2].sweepAngle = store.innerRingStates.marshmallow.sweepAngle;
-//     innerArcs[2].startAngle = store.innerRingStates.marshmallow.startAngle;
-
-//     outerArcs[0].sweepAngle = store.outerRingStates.monk.sweepAngle;
-//     outerArcs[0].startAngle = store.outerRingStates.monk.startAngle;
-//     outerArcs[1].sweepAngle = store.outerRingStates.monster.sweepAngle;
-//     outerArcs[1].startAngle = store.outerRingStates.monster.startAngle;
-//     outerArcs[2].sweepAngle = store.outerRingStates.marshmallow.sweepAngle;
-//     outerArcs[2].startAngle = store.outerRingStates.marshmallow.startAngle;
-
-//     return tracker;
-//   } catch (e) {
-//     return null;
-//   }
-// };
+      return tracker;
+    }
+  } catch (e) {
+    return null;
+  }
+};

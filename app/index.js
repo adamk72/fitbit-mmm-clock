@@ -8,17 +8,26 @@ import { updateClock } from './analog-pointers';
 import { CONFIG } from './config';
 import { me } from 'appbit';
 
-// me.addEventListener('unload', (evt) => {
-//   //tracker.saveToFile(CONFIG.MmmTrackerPath);
-// });
+me.addEventListener('unload', (evt) => {
+  tracker.saveToFile(CONFIG.MmmTrackerPath);
+});
 
-//let tracker = new MmmTracker.loadFromFile(CONFIG.MmmTrackerPath);
-let tracker = new MmmTracker();
+// import * as fs from 'fs';
+// try {
+//   let store = fs.readFileSync(CONFIG.MmmTrackerPath, 'cbor');
+//   console.log(store.settings.currentMode);
+//   console.log(store.settings.monkMinCnt);
+// } catch (e) {
+//   console.log('Failed file test' + e);
+// }
+
+let tracker = new MmmTracker.loadFromFile(CONFIG.MmmTrackerPath);
+//let tracker = new MmmTracker(CONFIG.settings);
 if (!tracker) {
   console.log(
     ' Failed to load tracker from file; trying again with new tracker'
   );
-  tracker = new MmmTracker();
+  tracker = new MmmTracker(CONFIG.settings);
 }
 
 clock.granularity = 'seconds';
