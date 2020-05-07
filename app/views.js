@@ -69,10 +69,10 @@ export function updateArcsOnTick(tracker, date) {
     date.getSeconds <= 5 &&
     !tracker.getJustReset()
   ) {
-    tracker.resetHours();
+    tracker.resetLongCnt();
     arcs.resetOuterRing();
-    tracker.resetHours();
-    arcs.resetOuterRing();
+    tracker.resetShortCount();
+    arcs.resetInnerRing();
     tracker.setJustReset(true);
   } else {
     setTimeout(() => {
@@ -80,30 +80,33 @@ export function updateArcsOnTick(tracker, date) {
     }, 5500);
   }
 
-  let minTotal = tracker.countMinTotal();
-  if (minTotal * INNER_RING_MULT >= 360) {
-    tracker.resetHours();
+  let shortTotal = tracker.countShortTotal();
+  if (shortTotal * INNER_RING_MULT >= 360) {
+    tracker.resetShortCount();
+    arcs.resetInnerRing();
+  }
+  let longTotal = tracker.countLongTotal();
+  if (longTotal * OUTER_RING_MULT >= 360) {
+    tracker.resetLongCnt();
     arcs.resetOuterRing();
   }
-  let hrTotal = tracker.countHrTotal();
-  if (hrTotal * OUTER_RING_MULT >= 360) {
-    tracker.resetHours();
-    arcs.resetOuterRing();
-  }
-
-  // Initialize the arcs arrays if they doesn't exist yet.
-  if (arcs.innerArcs.length === 0) arcs.initializeInnerRing();
-  if (arcs.outerArcs.length === 0) arcs.initializeOuterRing();
+  arcs.initializeInnerRing();
+  arcs.initializeOuterRing();
 
   // Get the sweep angle by mode
   arcs.innerArcs.forEach((arc, index) => {
-    arc().sweepAngle =
-      tracker.getMinuteCount(arcs.outerArcsItems[index].mode) * INNER_RING_MULT;
+    const shortCnt = tracker.getShortCnt(arcs.innerArcsItems[index].mode);
+    if (shortCnt) {
+      arc().sweepAngle = shortCnt;
+    }
   });
 
   arcs.outerArcs.forEach((arc, index) => {
-    arc().sweepAngle =
-      tracker.getHourCount(arcs.innerArcsItems[index].mode) * OUTER_RING_MULT;
+    const longCnt =
+      tracker.getLongCnt(arcs.outerArcsItems[index].mode) * OUTER_RING_MULT;
+    if (longCnt) {
+      arc().sweepAngle = longCnt;
+    }
   });
 
   setStartAngles(arcs.innerArcs);

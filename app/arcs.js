@@ -28,7 +28,7 @@ export function initializeOuterRing() {
 
 export function initializeInnerRing() {
   if (innerArcs.length === 0) {
-    innerArcsItems.forEach((arc) => {
+    innerArcsItems.forEach((arc, index) => {
       innerArcs.push(() => document.getElementById(arc.name));
     });
   }

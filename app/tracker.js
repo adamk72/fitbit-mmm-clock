@@ -2,7 +2,6 @@
 import { MmmMode } from './modes';
 import * as fs from 'fs';
 import { CONFIG } from './config';
-import { format } from 'url';
 
 const HOUR_DEGREE_INCREMENT = 360 / 60 / 60; // it updates in seconds.
 const DAY_DEGREE_INCREMENT = 360 / 24 / 60 / 60;
@@ -14,12 +13,13 @@ export const MmmTimerState = {
 
 export function MmmTracker(settings) {
   this.currentMode = settings.currentMode;
-  this.monkMinCnt = settings.monkMinCnt;
-  this.monsterMinCnt = settings.monsterMinCnt;
-  this.marshmallowMinCnt = settings.marshmallowMinCnt;
-  this.monkHrCnt = settings.monkHrCnt;
-  this.monsterHrCnt = settings.monsterHrCnt;
-  this.marshmallowHrCnt = settings.marshmallowHrCnt;
+  this.monkShortCnt = settings.monkShortCnt;
+  console.log('monk ' + this.monkShortCnt);
+  this.monsterShortCnt = settings.monsterShortCnt;
+  this.marshmallowShortCnt = settings.marshmallowShortCnt;
+  this.monkLongCnt = settings.monkLongCnt;
+  this.monsterLongCnt = settings.monsterLongCnt;
+  this.marshmallowLongCnt = settings.marshmallowLongCnt;
 
   this.innerColor = 'fb-blue';
   this.outerColor = 'fb-blue';
@@ -59,53 +59,55 @@ export function MmmTracker(settings) {
     return this.currentMode;
   };
 
-  this.resetMinutes = () => {
-    this.monkMinCnt = 0;
-    this.monsterMinCnt = 0;
-    this.marshmallowMinCnt = 0;
+  this.resetShortCnt = () => {
+    this.monkShortCnt = 0;
+    this.monsterShortCnt = 0;
+    this.marshmallowShortCnt = 0;
   };
 
-  this.resetHours = () => {
-    this.monkHrCnt = 0;
-    this.monsterHrCnt = 0;
-    this.marshmallowHrCnt = 0;
+  this.resetLongCnt = () => {
+    this.monkLongCnt = 0;
+    this.monsterLongCnt = 0;
+    this.marshmallowLongCnt = 0;
   };
 
   this.updateOnTick = () => {
     switch (this.currentMode) {
       case MmmMode.monk:
-        this.monkMinCnt = this.monkMinCnt + HOUR_DEGREE_INCREMENT;
-        this.monkHrCnt = this.monkHrCnt + DAY_DEGREE_INCREMENT;
-        this.monkHrCnt > this.monsterHrCnt &&
-        this.monkHrCnt > this.marshmallowHrCnt
+        this.monkShortCnt = this.monkShortCnt + HOUR_DEGREE_INCREMENT;
+        this.monkLongCnt = this.monkLongCnt + DAY_DEGREE_INCREMENT;
+        this.monkLongCnt > this.monsterLongCnt &&
+        this.monkLongCnt > this.marshmallowLongCnt
           ? (this.outerColor = 'fb-peach')
           : null;
-        this.monkMinCnt > this.monsterMinCnt &&
-        this.monkMinCnt > this.marshmallowMinCnt
+        this.monkShortCnt > this.monsterShortCnt &&
+        this.monkShortCnt > this.marshmallowShortCnt
           ? (this.innerColor = 'fb-peach')
           : null;
         return;
       case MmmMode.monster:
-        this.monsterMinCnt = this.monsterMinCnt + HOUR_DEGREE_INCREMENT;
-        this.monsterHrCnt = this.monsterHrCnt + DAY_DEGREE_INCREMENT;
-        this.monsterHrCnt > this.monkHrCnt &&
-        this.monsterHrCnt > this.marshmallowHrCnt
+        this.monsterShortCnt = this.monsterShortCnt + HOUR_DEGREE_INCREMENT;
+        this.monsterLongCnt = this.monsterLongCnt + DAY_DEGREE_INCREMENT;
+        this.monsterLongCnt > this.monkLongCnt &&
+        this.monsterLongCnt > this.marshmallowLongCnt
           ? (this.outerColor = 'fb-red')
           : null;
-        this.monsterMinCnt > this.monkMinCnt &&
-        this.monsterMinCnt > this.marshmallowMinCnt
+        this.monsterShortCnt > this.monkShortCnt &&
+        this.monsterShortCnt > this.marshmallowShortCnt
           ? (this.innerColor = 'fb-red')
           : null;
         return;
       case MmmMode.marshmallow:
-        this.marshmallowMinCnt = this.marshmallowMinCnt + HOUR_DEGREE_INCREMENT;
-        this.marshmallowHrCnt = this.marshmallowHrCnt + DAY_DEGREE_INCREMENT;
-        this.marshmallowHrCnt > this.monsterHrCnt &&
-        this.marshmallowHrCnt > this.monkHrCnt
+        this.marshmallowShortCnt =
+          this.marshmallowShortCnt + HOUR_DEGREE_INCREMENT;
+        this.marshmallowLongCnt =
+          this.marshmallowLongCnt + DAY_DEGREE_INCREMENT;
+        this.marshmallowLongCnt > this.monsterLongCnt &&
+        this.marshmallowLongCnt > this.monkLongCnt
           ? (this.outerColor = 'fb-white')
           : null;
-        this.marshmallowMinCnt > this.monsterMinCnt &&
-        this.marshmallowMinCnt > this.monkMinCnt
+        this.marshmallowShortCnt > this.monsterShortCnt &&
+        this.marshmallowShortCnt > this.monkShortCnt
           ? (this.innerColor = 'fb-white')
           : null;
         return;
@@ -115,94 +117,102 @@ export function MmmTracker(settings) {
     }
   };
 
-  this.getMinuteCount = (mode) => {
+  this.getShortCnt = (mode) => {
     switch (mode) {
       case MmmMode.monk:
-        return this.monkMinCnt;
+        return this.monkShortCnt;
       case MmmMode.monster:
-        return this.monsterMinCnt;
+        return this.monsterShortCnt;
       case MmmMode.marshmallow:
-        return this.marshmallowMinCnt;
+        return this.marshmallowShortCnt;
       case MmmMode.pause:
       default:
         return;
     }
   };
 
-  this.getHourCount = (mode) => {
+  this.getLongCnt = (mode) => {
     switch (mode) {
       case MmmMode.monk:
-        return this.monkHrCnt;
+        return this.monkLongCnt;
       case MmmMode.monster:
-        return this.monsterHrCnt;
+        return this.monsterLongCnt;
       case MmmMode.marshmallow:
-        return this.marshmallowHrCnt;
+        return this.marshmallowLongCnt;
       case MmmMode.pause:
       default:
         return;
     }
   };
 
-  this.countMinTotal = () => {
-    return this.monkMinCnt + this.marshmallowMinCnt + this.monsterMinCnt;
+  this.countShortTotal = () => {
+    return this.monkShortCnt + this.marshmallowShortCnt + this.monsterShortCnt;
   };
 
-  this.countHrTotal = () => {
-    return this.monkHrCnt + this.marshmallowHrCnt + this.monsterHrCnt;
+  this.countLongTotal = () => {
+    return this.monkLongCnt + this.marshmallowLongCnt + this.monsterLongCnt;
   };
 
   this.saveToFile = (path) => {
+    console.log('saving to file');
     let storedObj = {
       settings: {
         currentMode: this.currentMode,
-        monkMinCnt: this.monkMinCnt,
-        monsterMinCnt: this.monsterMinCnt,
-        marshmallowMinCnt: this.marshmallowMinCnt,
-        monkHrCnt: this.marshmallowMinCnt,
-        monsterHrCnt: this.marshmallowMinCnt,
-        marshmallowHrCnt: this.marshmallowMinCnt,
+        monkShortCnt: this.monkShortCnt,
+        monsterShortCnt: this.monsterShortCnt,
+        marshmallowShortCnt: this.marshmallowShortCnt,
+        monkLongCnt: this.marshmallowShortCnt,
+        monsterLongCnt: this.marshmallowShortCnt,
+        marshmallowLongCnt: this.marshmallowShortCnt,
       },
     };
     console.log(storedObj.settings.currentMode);
-    console.log(storedObj.settings.monkMinCnt);
+    console.log(storedObj.settings.monkShortCnt);
     fs.writeFileSync(path, storedObj, 'cbor');
   };
 
   this.monkMin = (m) => {
-    this.monkMinCnt = m;
+    this.monkShortCnt = m;
   };
   this.monsterMin = (m) => {
-    this.monsterMinCnt = m;
+    this.monsterShortCnt = m;
   };
   this.marshmallowMin = (m) => {
-    this.marshmallowMinCnt = m;
+    this.marshmallowShortCnt = m;
   };
 
   this.monkHr = (m) => {
-    this.monkHrCnt = m;
+    this.monkLongCnt = m;
   };
   this.monsterHr = (m) => {
-    this.monsterHrCnt = m;
+    this.monsterLongCnt = m;
   };
   this.marshmallowHr = (m) => {
-    this.marshmallowHrCnt = m;
+    this.marshmallowLongCnt = m;
   };
 }
 
 MmmTracker.loadFromFile = (path) => {
   try {
+    console.log('Trying to read from file');
     let store = fs.readFileSync(path, 'cbor');
+    console.log('store def: ' + store.settings.monkShortCnt);
+
     if (
       store.settings.currentMode != undefined ||
       store.settings.currentMode != null
     ) {
       let tracker = new MmmTracker(store.settings);
 
+      console.log('tracker def: ' + tracker);
+
       return tracker;
     } else {
+      console.log("tracker undef'd");
       return null;
     }
   } catch (e) {
+    console.log('Loading w/def 0 settings');
     fs.writeFileSync(CONFIG.MmmTrackerPath, CONFIG.settings, 'cbor');
     let tracker = new MmmTracker(CONFIG.settings);
     return tracker;
