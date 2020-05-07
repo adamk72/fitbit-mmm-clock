@@ -14,7 +14,6 @@ export const MmmTimerState = {
 export function MmmTracker(settings) {
   this.currentMode = settings.currentMode;
   this.monkShortCnt = settings.monkShortCnt;
-  console.log('monk ' + this.monkShortCnt);
   this.monsterShortCnt = settings.monsterShortCnt;
   this.marshmallowShortCnt = settings.marshmallowShortCnt;
   this.monkLongCnt = settings.monkLongCnt;
@@ -154,7 +153,6 @@ export function MmmTracker(settings) {
   };
 
   this.saveToFile = (path) => {
-    console.log('saving to file');
     let storedObj = {
       settings: {
         currentMode: this.currentMode,
@@ -166,8 +164,6 @@ export function MmmTracker(settings) {
         marshmallowLongCnt: this.marshmallowShortCnt,
       },
     };
-    console.log(storedObj.settings.currentMode);
-    console.log(storedObj.settings.monkShortCnt);
     fs.writeFileSync(path, storedObj, 'cbor');
   };
 
@@ -194,9 +190,7 @@ export function MmmTracker(settings) {
 
 MmmTracker.loadFromFile = (path) => {
   try {
-    console.log('Trying to read from file');
     let store = fs.readFileSync(path, 'cbor');
-    console.log('store def: ' + store.settings.monkShortCnt);
 
     if (
       store.settings.currentMode != undefined ||
@@ -204,15 +198,11 @@ MmmTracker.loadFromFile = (path) => {
     ) {
       let tracker = new MmmTracker(store.settings);
 
-      console.log('tracker def: ' + tracker);
-
       return tracker;
     } else {
-      console.log("tracker undef'd");
       return null;
     }
   } catch (e) {
-    console.log('Loading w/def 0 settings');
     fs.writeFileSync(CONFIG.MmmTrackerPath, CONFIG.settings, 'cbor');
     let tracker = new MmmTracker(CONFIG.settings);
     return tracker;
