@@ -20,7 +20,6 @@ initializeInnerRing();
 
 export function initializeOuterRing() {
   if (outerArcs.length === 0) {
-    console.log('initializeOuterRing');
     outerArcsItems.forEach((arc, index) => {
       outerArcs.push(() => document.getElementById(arc.name));
       outerArcs[index]().sweepAngle = 0;
@@ -31,7 +30,6 @@ export function initializeOuterRing() {
 
 export function initializeInnerRing() {
   if (innerArcs.length === 0) {
-    console.log('initializeInnerRing');
     innerArcsItems.forEach((arc, index) => {
       innerArcs.push(() => document.getElementById(arc.name));
       innerArcs[index]().sweepAngle = 0;
