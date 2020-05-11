@@ -67,6 +67,7 @@ export function MmmTracker(settings) {
   this.countShortTotal = () => {
     let sum = 0;
     MmmMode.forEach((obj, index) => {
+      console.log(obj.name + ' ' + obj.shortCount);
       sum = sum + obj.shortCount;
     });
     return sum;

@@ -66,6 +66,8 @@ function setStartAngles(arcList) {
   arcList[0].startAngle = 0;
   arcList[1].startAngle = arcList[0].sweepAngle;
   arcList[2].startAngle = arcList[0].sweepAngle + arcList[1].sweepAngle;
+  arcList[3].startAngle =
+    arcList[0].sweepAngle + arcList[1].sweepAngle + arcList[2].sweepAngle;
 }
 
 export function updateArcsOnTick(tracker, date) {
