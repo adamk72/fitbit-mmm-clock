@@ -3,11 +3,6 @@ import { MmmMode, MmmCurrent } from './modes';
 import * as fs from 'fs';
 import { CONFIG } from './config';
 
-export const MmmTimerState = {
-  running: 'running',
-  paused: 'paused',
-};
-
 export function MmmTracker(settings) {
   this.innerColor = 'fb-blue';
   this.outerColor = 'fb-blue';

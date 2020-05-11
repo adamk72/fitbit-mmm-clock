@@ -16,7 +16,7 @@
 
 <section id="inner-circle">
   <!-- pause arc-->
-  <arc id="pause-iArc" x="50%-106" y="50%-106" width="212" height="212" fill="fb-dark-gray"
+  <arc id="pause-iArc" x="50%-106" y="50%-106" width="212" height="212" fill="fb-blue"
     arc-width="5" start-angle="0" sweep-angle="360"/>
 
   <!-- monk arc-->
@@ -34,7 +34,7 @@
 </section>
 <section id="outer-circle">
   <!-- pause arc-->
-  <arc id="pause-oArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-extra-dark-gray"
+  <arc id="pause-oArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-blue"
     arc-width="3" start-angle="0" sweep-angle="360"/>
 
   <!-- monk arc-->
