@@ -9,14 +9,6 @@ export const MmmTimerState = {
 };
 
 export function MmmTracker(settings) {
-  this.currentMode = settings.currentMode;
-  this.monkShortCnt = settings.monkShortCnt;
-  this.monsterShortCnt = settings.monsterShortCnt;
-  this.marshmallowShortCnt = settings.marshmallowShortCnt;
-  this.monkLongCnt = settings.monkLongCnt;
-  this.monsterLongCnt = settings.monsterLongCnt;
-  this.marshmallowLongCnt = settings.marshmallowLongCnt;
-
   this.innerColor = 'fb-blue';
   this.outerColor = 'fb-blue';
 
@@ -42,6 +34,7 @@ export function MmmTracker(settings) {
     MmmMode[MmmIndex.current].shortCount = mode.shortCount;
     MmmMode[MmmIndex.current].longCount = mode.longCount;
     MmmMode[MmmIndex.current].color = mode.color;
+    console.log('set ' + mode.name + ' color to: ' + mode.color);
     MmmMode[MmmIndex.current].name = mode.name;
     MmmMode[MmmIndex.current].index = mode.index;
   };
@@ -70,32 +63,40 @@ export function MmmTracker(settings) {
   };
 
   this.getShortCount = (index) => {
-    MmmMode[index].shortCount;
+    return MmmMode[index].shortCount;
   };
 
   this.getLongCount = (index) => {
-    console.log(index);
-    MmmMode[index].longCount;
+    return MmmMode[index].longCount;
   };
 
   this.countShortTotal = () => {
-    return this.monkShortCnt + this.marshmallowShortCnt + this.monsterShortCnt;
+    let sum = 0;
+    MmmMode.forEach((obj, index) => {
+      if (index === 0) return;
+      sum = sum + obj.shortCount;
+    });
+    return sum;
   };
-
   this.countLongTotal = () => {
-    return this.monkLongCnt + this.marshmallowLongCnt + this.monsterLongCnt;
+    let sum = 0;
+    MmmMode.forEach((obj, index) => {
+      if (index === 0) return;
+      sum = sum + obj.longCount;
+    });
+    return sum;
   };
 
   this.saveToFile = (path) => {
     let storedObj = {
       settings: {
-        currentMode: this.currentMode,
-        monkShortCnt: this.monkShortCnt,
-        monsterShortCnt: this.monsterShortCnt,
-        marshmallowShortCnt: this.marshmallowShortCnt,
-        monkLongCnt: this.marshmallowShortCnt,
-        monsterLongCnt: this.marshmallowShortCnt,
-        marshmallowLongCnt: this.marshmallowShortCnt,
+        // currentMode: this.currentMode,
+        // monkShortCnt: this.monkShortCnt,
+        // monsterShortCnt: this.monsterShortCnt,
+        // marshmallowShortCnt: this.marshmallowShortCnt,
+        // monkLongCnt: this.marshmallowShortCnt,
+        // monsterLongCnt: this.marshmallowShortCnt,
+        // marshmallowLongCnt: this.marshmallowShortCnt,
       },
     };
     fs.writeFileSync(path, storedObj, 'cbor');

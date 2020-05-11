@@ -4,11 +4,13 @@ export const outerArcsItems = [
   { name: 'monk-oArc' },
   { name: 'monster-oArc' },
   { name: 'marshmallow-oArc' },
+  { name: 'pause-oArc' },
 ];
 export const innerArcsItems = [
   { name: 'monk-iArc' },
   { name: 'monster-iArc' },
   { name: 'marshmallow-iArc' },
+  { name: 'pause-iArc' },
 ];
 
 export let outerArcs = [];

@@ -61,6 +61,6 @@ buttons.monster.addEventListener('activate', (evt) => {
 });
 
 buttons.pause.addEventListener('activate', (evt) => {
-  tracker.setCurrentMode(MmmMode[MmmIndex.current]);
+  tracker.setCurrentMode(MmmMode[MmmIndex.pause]);
   views.updateModeImage(tracker);
 });

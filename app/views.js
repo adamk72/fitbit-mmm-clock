@@ -77,7 +77,7 @@ export function updateArcsOnTick(tracker, date) {
     const shortCnt = tracker.getShortCount(index);
     if (index === 0) return; // skip the "current" since the actual modes start at 1.
     if (shortCnt) {
-      arc().sweepAngle =
+      arc.sweepAngle =
         NUM_MINUTE_DEGREES *
         (shortCnt / NUM_OF_MINUTES + seconds / NUM_OF_SECONDS);
     }
@@ -87,7 +87,7 @@ export function updateArcsOnTick(tracker, date) {
     if (index === 0) return; // skip the "current" since the actual modes start at 1.
     const longCnt = tracker.getLongCount(index);
     if (longCnt) {
-      arc().sweepAngle =
+      arc.sweepAngle =
         NUM_HOUR_DEGREES * (longCnt / NUM_OF_HOURS + minutes / NUM_OF_MINUTES);
     }
   });
