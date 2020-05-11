@@ -14,27 +14,26 @@ export const innerArcsItems = [
 export let outerArcs = [];
 export let innerArcs = [];
 
-initializeOuterRing();
 initializeInnerRing();
+initializeOuterRing();
 
-export function initializeOuterRing() {
-  if (outerArcs.length === 0) {
-    outerArcsItems.forEach((arc, index) => {
-      outerArcs.push(() => document.getElementById(arc.name));
-      outerArcs[index]().sweepAngle = 0;
-      outerArcs[index]().startAngle = 0;
+function initRing(arcs, items) {
+  if (arcs.length === 0) {
+    items.forEach((arc) => {
+      let result = document.getElementById(arc.name);
+      result.sweepAngle = 0;
+      result.startAngle = 0;
+      arcs.push(result);
     });
   }
 }
 
+export function initializeOuterRing() {
+  initRing(outerArcs, outerArcsItems);
+}
+
 export function initializeInnerRing() {
-  if (innerArcs.length === 0) {
-    innerArcsItems.forEach((arc, index) => {
-      innerArcs.push(() => document.getElementById(arc.name));
-      innerArcs[index]().sweepAngle = 0;
-      innerArcs[index]().startAngle = 0;
-    });
-  }
+  initRing(innerArcs, innerArcsItems);
 }
 
 export function resetInnerRing() {

@@ -45,22 +45,22 @@ clock.addEventListener('tick', (evt) => {
   views.updateArcsOnTick(tracker, evt.date);
 });
 
-buttons.monk().addEventListener('activate', (evt) => {
+buttons.monk.addEventListener('activate', (evt) => {
   tracker.setCurrentMode(MmmMode[MmmIndex.monk]);
   views.updateModeImage(tracker);
 });
 
-buttons.marshmallow().addEventListener('activate', (evt) => {
+buttons.marshmallow.addEventListener('activate', (evt) => {
   tracker.setCurrentMode(MmmMode[MmmIndex.marshmallow]);
   views.updateModeImage(tracker);
 });
 
-buttons.monster().addEventListener('activate', (evt) => {
+buttons.monster.addEventListener('activate', (evt) => {
   tracker.setCurrentMode(MmmMode[MmmIndex.monster]);
   views.updateModeImage(tracker);
 });
 
-buttons.pause().addEventListener('activate', (evt) => {
+buttons.pause.addEventListener('activate', (evt) => {
   tracker.setCurrentMode(MmmMode[MmmIndex.current]);
   views.updateModeImage(tracker);
 });

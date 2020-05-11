@@ -69,11 +69,12 @@ export function MmmTracker(settings) {
     }
   };
 
-  this.getShortCnt = (index) => {
+  this.getShortCount = (index) => {
     MmmMode[index].shortCount;
   };
 
-  this.getLongCnt = (index) => {
+  this.getLongCount = (index) => {
+    console.log(index);
     MmmMode[index].longCount;
   };
 
