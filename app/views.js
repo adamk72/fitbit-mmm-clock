@@ -75,7 +75,6 @@ export function updateArcsOnTick(tracker, date) {
   // Get the sweep angle by mode
   arcs.innerArcs.forEach((arc, index) => {
     const shortCnt = tracker.getShortCount(index);
-    if (index === 0) return; // skip the "current" since the actual modes start at 1.
     if (shortCnt) {
       arc.sweepAngle =
         NUM_MINUTE_DEGREES *
@@ -84,7 +83,6 @@ export function updateArcsOnTick(tracker, date) {
   });
 
   arcs.outerArcs.forEach((arc, index) => {
-    if (index === 0) return; // skip the "current" since the actual modes start at 1.
     const longCnt = tracker.getLongCount(index);
     if (longCnt) {
       arc.sweepAngle =

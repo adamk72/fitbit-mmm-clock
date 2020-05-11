@@ -1,19 +1,11 @@
 export const MmmMode = [
   {
-    name: 'Current',
-    initTime: 0,
-    shortCount: 0,
-    longCount: 0,
-    color: 'fb-dark-gray',
-    index: 0,
-  },
-  {
     name: 'Monk',
     initTime: 0,
     shortCount: 0,
     longCount: 0,
     color: 'fb-peach',
-    index: 1,
+    index: 0,
   },
   {
     name: 'Monster',
@@ -21,7 +13,7 @@ export const MmmMode = [
     shortCount: 0,
     longCount: 0,
     color: 'fb-red',
-    index: 2,
+    index: 1,
   },
   {
     name: 'Marshmallow',
@@ -29,7 +21,7 @@ export const MmmMode = [
     shortCount: 0,
     longCount: 0,
     color: 'fb-white',
-    index: 3,
+    index: 2,
   },
   {
     name: 'Pause',
@@ -37,14 +29,23 @@ export const MmmMode = [
     shortCount: 0,
     longCount: 0,
     color: 'fb-blue',
-    index: 4,
+    index: 3,
   },
 ];
 
 export const MmmIndex = {
-  current: 0,
-  monk: 1,
-  monster: 2,
-  marshmallow: 3,
-  pause: 4,
+  monk: 0,
+  monster: 1,
+  marshmallow: 2,
+  pause: 3,
 };
+
+
+export const MmmCurrent = {
+  name: 'Current',
+  initTime: 0,
+  shortCount: 0,
+  longCount: 0,
+  color: 'fb-dark-gray',
+  index: -1,
+},

@@ -1,5 +1,5 @@
 // import { outerArcs, innerArcs } from './arcs';
-import { MmmMode, MmmIndex } from './modes';
+import { MmmMode, MmmCurrent } from './modes';
 import * as fs from 'fs';
 import { CONFIG } from './config';
 
@@ -30,23 +30,22 @@ export function MmmTracker(settings) {
   };
 
   this.setCurrentMode = (mode) => {
-    MmmMode[MmmIndex.current].initTime = mode.initTime;
-    MmmMode[MmmIndex.current].shortCount = mode.shortCount;
-    MmmMode[MmmIndex.current].longCount = mode.longCount;
-    MmmMode[MmmIndex.current].color = mode.color;
-    console.log('set ' + mode.name + ' color to: ' + mode.color);
-    MmmMode[MmmIndex.current].name = mode.name;
-    MmmMode[MmmIndex.current].index = mode.index;
+    MmmCurrent.initTime = mode.initTime;
+    MmmCurrent.shortCount = mode.shortCount;
+    MmmCurrent.longCount = mode.longCount;
+    MmmCurrent.color = mode.color;
+    MmmCurrent.name = mode.name;
+    MmmCurrent.index = mode.index;
   };
 
   this.getCurrentMode = () => {
-    return MmmMode[MmmIndex.current];
+    return MmmCurrent;
   };
 
   this.updateModeCountOnTick = () => {
-    const currentMode = MmmMode[MmmIndex.current];
+    const currentMode = MmmCurrent;
 
-    if (currentMode && currentMode.name != 'Current') {
+    if (currentMode && currentMode.index != -1) {
       // update the actual object
       MmmMode[currentMode.index].shortCount =
         MmmMode[currentMode.index].shortCount + 1;
@@ -73,7 +72,6 @@ export function MmmTracker(settings) {
   this.countShortTotal = () => {
     let sum = 0;
     MmmMode.forEach((obj, index) => {
-      if (index === 0) return;
       sum = sum + obj.shortCount;
     });
     return sum;
@@ -81,7 +79,6 @@ export function MmmTracker(settings) {
   this.countLongTotal = () => {
     let sum = 0;
     MmmMode.forEach((obj, index) => {
-      if (index === 0) return;
       sum = sum + obj.longCount;
     });
     return sum;
