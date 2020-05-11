@@ -1,15 +1,14 @@
 import document from 'document';
-import { MmmMode } from './modes';
 
 export const outerArcsItems = [
-  { name: 'monk-oArc', mode: MmmMode.monk },
-  { name: 'monster-oArc', mode: MmmMode.monster },
-  { name: 'marshmallow-oArc', mode: MmmMode.marshmallow },
+  { name: 'monk-oArc' },
+  { name: 'monster-oArc' },
+  { name: 'marshmallow-oArc' },
 ];
 export const innerArcsItems = [
-  { name: 'monk-iArc', mode: MmmMode.monk },
-  { name: 'monster-iArc', mode: MmmMode.monster },
-  { name: 'marshmallow-iArc', mode: MmmMode.marshmallow },
+  { name: 'monk-iArc' },
+  { name: 'monster-iArc' },
+  { name: 'marshmallow-iArc' },
 ];
 
 export let outerArcs = [];

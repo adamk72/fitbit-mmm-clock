@@ -1,10 +1,7 @@
 // import { outerArcs, innerArcs } from './arcs';
-import { MmmMode } from './modes';
+import { MmmMode, MmmIndex } from './modes';
 import * as fs from 'fs';
 import { CONFIG } from './config';
-
-const HOUR_DEGREE_INCREMENT = 360 / 60 / 60; // it updates in seconds.
-const DAY_DEGREE_INCREMENT = 360 / 24 / 60 / 60;
 
 export const MmmTimerState = {
   running: 'running',
@@ -22,16 +19,6 @@ export function MmmTracker(settings) {
 
   this.innerColor = 'fb-blue';
   this.outerColor = 'fb-blue';
-
-  this.justReset = false;
-
-  this.getJustReset = () => {
-    return this.justReset;
-  };
-
-  this.setJustReset = (bool) => {
-    this.justReset = bool;
-  };
 
   // Ideally, this should be located elsewhere
   this.getInnerColor = () => {
@@ -51,97 +38,43 @@ export function MmmTracker(settings) {
   };
 
   this.setCurrentMode = (mode) => {
-    this.currentMode = mode;
+    MmmMode[MmmIndex.current].initTime = mode.initTime;
+    MmmMode[MmmIndex.current].shortCount = mode.shortCount;
+    MmmMode[MmmIndex.current].longCount = mode.longCount;
+    MmmMode[MmmIndex.current].color = mode.color;
+    MmmMode[MmmIndex.current].name = mode.name;
+    MmmMode[MmmIndex.current].index = mode.index;
   };
 
   this.getCurrentMode = () => {
-    return this.currentMode;
+    return MmmMode[MmmIndex.current];
   };
 
-  this.resetShortCnt = () => {
-    this.monkShortCnt = 0;
-    this.monsterShortCnt = 0;
-    this.marshmallowShortCnt = 0;
-  };
+  this.updateModeCountOnTick = () => {
+    const currentMode = MmmMode[MmmIndex.current];
 
-  this.resetLongCnt = () => {
-    this.monkLongCnt = 0;
-    this.monsterLongCnt = 0;
-    this.marshmallowLongCnt = 0;
-  };
+    if (currentMode && currentMode.name != 'Current') {
+      // update the actual object
+      MmmMode[currentMode.index].shortCount =
+        MmmMode[currentMode.index].shortCount + 1;
+      MmmMode[currentMode.index].longCount =
+        MmmMode[currentMode.index].longCount + 1;
 
-  this.updateOnTick = () => {
-    switch (this.currentMode) {
-      case MmmMode.monk:
-        this.monkShortCnt = this.monkShortCnt + HOUR_DEGREE_INCREMENT;
-        this.monkLongCnt = this.monkLongCnt + DAY_DEGREE_INCREMENT;
-        this.monkLongCnt > this.monsterLongCnt &&
-        this.monkLongCnt > this.marshmallowLongCnt
-          ? (this.outerColor = 'fb-peach')
-          : null;
-        this.monkShortCnt > this.monsterShortCnt &&
-        this.monkShortCnt > this.marshmallowShortCnt
-          ? (this.innerColor = 'fb-peach')
-          : null;
-        return;
-      case MmmMode.monster:
-        this.monsterShortCnt = this.monsterShortCnt + HOUR_DEGREE_INCREMENT;
-        this.monsterLongCnt = this.monsterLongCnt + DAY_DEGREE_INCREMENT;
-        this.monsterLongCnt > this.monkLongCnt &&
-        this.monsterLongCnt > this.marshmallowLongCnt
-          ? (this.outerColor = 'fb-red')
-          : null;
-        this.monsterShortCnt > this.monkShortCnt &&
-        this.monsterShortCnt > this.marshmallowShortCnt
-          ? (this.innerColor = 'fb-red')
-          : null;
-        return;
-      case MmmMode.marshmallow:
-        this.marshmallowShortCnt =
-          this.marshmallowShortCnt + HOUR_DEGREE_INCREMENT;
-        this.marshmallowLongCnt =
-          this.marshmallowLongCnt + DAY_DEGREE_INCREMENT;
-        this.marshmallowLongCnt > this.monsterLongCnt &&
-        this.marshmallowLongCnt > this.monkLongCnt
-          ? (this.outerColor = 'fb-white')
-          : null;
-        this.marshmallowShortCnt > this.monsterShortCnt &&
-        this.marshmallowShortCnt > this.monkShortCnt
-          ? (this.innerColor = 'fb-white')
-          : null;
-        return;
-      case MmmMode.pause:
-      default:
-        return;
+      // update the current object to match
+      currentMode.shortCount = MmmMode[currentMode.index].shortCount;
+      currentMode.longCount = MmmMode[currentMode.index].longCount;
+
+      this.outerColor = currentMode.color;
+      this.innerColor = currentMode.color;
     }
   };
 
-  this.getShortCnt = (mode) => {
-    switch (mode) {
-      case MmmMode.monk:
-        return this.monkShortCnt;
-      case MmmMode.monster:
-        return this.monsterShortCnt;
-      case MmmMode.marshmallow:
-        return this.marshmallowShortCnt;
-      case MmmMode.pause:
-      default:
-        return;
-    }
+  this.getShortCnt = (index) => {
+    MmmMode[index].shortCount;
   };
 
-  this.getLongCnt = (mode) => {
-    switch (mode) {
-      case MmmMode.monk:
-        return this.monkLongCnt;
-      case MmmMode.monster:
-        return this.monsterLongCnt;
-      case MmmMode.marshmallow:
-        return this.marshmallowLongCnt;
-      case MmmMode.pause:
-      default:
-        return;
-    }
+  this.getLongCnt = (index) => {
+    MmmMode[index].longCount;
   };
 
   this.countShortTotal = () => {
@@ -165,26 +98,6 @@ export function MmmTracker(settings) {
       },
     };
     fs.writeFileSync(path, storedObj, 'cbor');
-  };
-
-  this.monkMin = (m) => {
-    this.monkShortCnt = m;
-  };
-  this.monsterMin = (m) => {
-    this.monsterShortCnt = m;
-  };
-  this.marshmallowMin = (m) => {
-    this.marshmallowShortCnt = m;
-  };
-
-  this.monkHr = (m) => {
-    this.monkLongCnt = m;
-  };
-  this.monsterHr = (m) => {
-    this.monsterLongCnt = m;
-  };
-  this.marshmallowHr = (m) => {
-    this.marshmallowLongCnt = m;
   };
 }
 
