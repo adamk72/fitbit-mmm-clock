@@ -6,6 +6,7 @@ import { CONFIG } from './config';
 export function MmmTracker(settings) {
   this.innerColor = 'fb-blue';
   this.outerColor = 'fb-blue';
+  this.date = new Date();
 
   // Ideally, this should be located elsewhere
   this.getInnerColor = () => {
@@ -25,6 +26,10 @@ export function MmmTracker(settings) {
   };
 
   this.setCurrentMode = (mode) => {
+    const date = new Date();
+    if (mode.initTime === 0) {
+      mode.initTime = date.getTime() / 1000;
+    }
     MmmCurrent.initTime = mode.initTime;
     MmmCurrent.shortCount = mode.shortCount;
     MmmCurrent.longCount = mode.longCount;
@@ -37,37 +42,37 @@ export function MmmTracker(settings) {
     return MmmCurrent;
   };
 
-  this.updateModeCountOnTick = () => {
-    const currentMode = MmmCurrent;
+  // this.updateModeCountOnTick = () => {
+  //   const currentMode = MmmCurrent;
 
-    if (currentMode && currentMode.index != -1) {
-      // update the actual object
-      MmmMode[currentMode.index].shortCount =
-        MmmMode[currentMode.index].shortCount + 1;
-      MmmMode[currentMode.index].longCount =
-        MmmMode[currentMode.index].longCount + 1;
+  //   if (currentMode && currentMode.index != -1) {
+  //     // update the actual object
+  //     MmmMode[currentMode.index].shortCount =
+  //       MmmMode[currentMode.index].shortCount + 1;
+  //     MmmMode[currentMode.index].longCount =
+  //       MmmMode[currentMode.index].longCount + 1;
 
-      // update the current object to match
-      currentMode.shortCount = MmmMode[currentMode.index].shortCount;
-      currentMode.longCount = MmmMode[currentMode.index].longCount;
+  //     // update the current object to match
+  //     currentMode.shortCount = MmmMode[currentMode.index].shortCount;
+  //     currentMode.longCount = MmmMode[currentMode.index].longCount;
 
-      this.outerColor = currentMode.color;
-      this.innerColor = currentMode.color;
-    }
-  };
+  //     this.outerColor = currentMode.color;
+  //     this.innerColor = currentMode.color;
+  //   }
+  // };
 
-  this.getShortCount = (index) => {
-    return MmmMode[index].shortCount;
-  };
-
-  this.getLongCount = (index) => {
-    return MmmMode[index].longCount;
+  this.getCount = (index) => {
+    const initTime = MmmMode[index].initTime;
+    if (initTime != 0) {
+      const date = new Date();
+      const currentTime = date.getTime() / 1000;
+      return currentTime - initTime;
+    } else return 0;
   };
 
   this.countShortTotal = () => {
     let sum = 0;
     MmmMode.forEach((obj, index) => {
-      console.log(obj.name + ' ' + obj.shortCount);
       sum = sum + obj.shortCount;
     });
     return sum;

@@ -60,7 +60,7 @@ const NUM_OF_HOURS = 24;
 const NUM_OF_MINUTES = 60;
 const NUM_OF_SECONDS = 60;
 const NUM_MINUTE_DEGREES = NUM_OF_DEGREES / NUM_OF_MINUTES;
-const NUM_HOUR_DEGREES = NUM_OF_DEGREES / NUM_OF_HOURS;
+const NUM_HOUR_DEGREES = NUM_OF_DEGREES / NUM_OF_HOURS / NUM_MINUTE_DEGREES;
 
 function setStartAngles(arcList) {
   arcList[0].startAngle = 0;
@@ -70,25 +70,21 @@ function setStartAngles(arcList) {
     arcList[0].sweepAngle + arcList[1].sweepAngle + arcList[2].sweepAngle;
 }
 
-export function updateArcsOnTick(tracker, date) {
-  let minutes = date.getMinutes();
-  let seconds = date.getSeconds();
-
+export function updateArcsOnTick(tracker) {
   // Get the sweep angle by mode
   arcs.innerArcs.forEach((arc, index) => {
-    const shortCnt = tracker.getShortCount(index);
+    const shortCnt = tracker.getCount(index);
     if (shortCnt) {
-      arc.sweepAngle =
-        NUM_MINUTE_DEGREES *
-        (shortCnt / NUM_OF_MINUTES + seconds / NUM_OF_SECONDS);
+      arc.sweepAngle = NUM_MINUTE_DEGREES * (shortCnt / NUM_OF_MINUTES);
+      // console.log(shortCnt + ' ' + arc.sweepAngle);
     }
   });
 
   arcs.outerArcs.forEach((arc, index) => {
-    const longCnt = tracker.getLongCount(index);
+    const longCnt = tracker.getCount(index);
     if (longCnt) {
       arc.sweepAngle =
-        NUM_HOUR_DEGREES * (longCnt / NUM_OF_HOURS + minutes / NUM_OF_MINUTES);
+        NUM_HOUR_DEGREES * (longCnt / NUM_OF_HOURS / NUM_OF_MINUTES);
     }
   });
 
