@@ -1,12 +1,13 @@
 // import { outerArcs, innerArcs } from './arcs';
-import { MmmMode, MmmCurrent } from './modes';
+import { MmmMode, MmmCurrent, MmmTrackerPath } from './modes';
 import * as fs from 'fs';
-import { CONFIG } from './config';
 
-export function MmmTracker(settings) {
+export function MmmTracker(modeInit, currentInit) {
   this.innerColor = 'fb-blue';
   this.outerColor = 'fb-blue';
   this.date = new Date();
+  this.mode = modeInit;
+  this.current = currentInit;
 
   // Ideally, this should be located elsewhere
   this.getInnerColor = () => {
@@ -27,12 +28,26 @@ export function MmmTracker(settings) {
 
   this.setCurrentMode = (mode) => {
     const date = new Date();
-    if (mode.initTime === 0) {
-      mode.initTime = date.getTime() / 1000;
+    const time = date.getTime() / 1000;
+
+    // if we switch modes, record the last count of the current mode before setting MmmCurrent
+    if (mode.initTime != 0 && mode.name != MmmCurrent.name) {
+      const currModeTimeElapsed = time - MmmCurrent.initTime;
+      // Add the last elasped time to the next mode's initTime to bring it up to speed.
+      if (mode.initTime === 0) {
+        mode.initTime = time;
+      } else {
+        mode.initTime = mode.initTime + currModeTimeElapsed;
+      }
+      // Since we are switching modes, update current/(now previous) w/ elapsed time.
+      MmmCurrent.lastCount = MmmCurrent.lastCount + currModeTimeElapsed;
+    } else if (mode.initTime === 0) {
+      mode.initTime = time;
+    } else {
+      MmmCurrent.lastCount = mode.lastCount;
     }
+
     MmmCurrent.initTime = mode.initTime;
-    MmmCurrent.shortCount = mode.shortCount;
-    MmmCurrent.longCount = mode.longCount;
     MmmCurrent.color = mode.color;
     MmmCurrent.name = mode.name;
     MmmCurrent.index = mode.index;
@@ -41,61 +56,53 @@ export function MmmTracker(settings) {
   this.getCurrentMode = () => {
     return MmmCurrent;
   };
-
-  // this.updateModeCountOnTick = () => {
-  //   const currentMode = MmmCurrent;
-
-  //   if (currentMode && currentMode.index != -1) {
-  //     // update the actual object
-  //     MmmMode[currentMode.index].shortCount =
-  //       MmmMode[currentMode.index].shortCount + 1;
-  //     MmmMode[currentMode.index].longCount =
-  //       MmmMode[currentMode.index].longCount + 1;
-
-  //     // update the current object to match
-  //     currentMode.shortCount = MmmMode[currentMode.index].shortCount;
-  //     currentMode.longCount = MmmMode[currentMode.index].longCount;
-
-  //     this.outerColor = currentMode.color;
-  //     this.innerColor = currentMode.color;
-  //   }
-  // };
-
+  {
+    // this.updateModeCountOnTick = () => {
+    //   const currentMode = MmmCurrent;
+    //   if (currentMode && currentMode.index != -1) {
+    //     // update the actual object
+    //     MmmMode[currentMode.index].shortCount =
+    //       MmmMode[currentMode.index].shortCount + 1;
+    //     MmmMode[currentMode.index].longCount =
+    //       MmmMode[currentMode.index].longCount + 1;
+    //     // update the current object to match
+    //     currentMode.shortCount = MmmMode[currentMode.index].shortCount;
+    //     currentMode.longCount = MmmMode[currentMode.index].longCount;
+    //     this.outerColor = currentMode.color;
+    //     this.innerColor = currentMode.color;
+    //   }
+    // };
+  }
   this.getCount = (index) => {
-    const initTime = MmmMode[index].initTime;
-    if (initTime != 0) {
+    // If the mode is still active, increment count.
+    // console.log(
+    //   MmmMode[index].name +
+    //     ' ' +
+    //     MmmMode[index].initTime +
+    //     ' ' +
+    //     MmmMode[index].lastCount
+    // );
+
+    if (MmmMode[index].name === MmmCurrent.name) {
       const date = new Date();
-      const currentTime = date.getTime() / 1000;
-      return currentTime - initTime;
-    } else return 0;
+      return date.getTime() / 1000 - MmmMode[index].initTime;
+    } else {
+      return MmmMode[index].lastCount;
+    }
   };
 
-  this.countShortTotal = () => {
+  this.totalCount = () => {
     let sum = 0;
-    MmmMode.forEach((obj, index) => {
-      sum = sum + obj.shortCount;
-    });
-    return sum;
-  };
-  this.countLongTotal = () => {
-    let sum = 0;
-    MmmMode.forEach((obj, index) => {
-      sum = sum + obj.longCount;
+    MmmMode.forEach((obj) => {
+      sum = sum + obj.lastCount;
     });
     return sum;
   };
 
   this.saveToFile = (path) => {
     let storedObj = {
-      settings: {
-        // currentMode: this.currentMode,
-        // monkShortCnt: this.monkShortCnt,
-        // monsterShortCnt: this.monsterShortCnt,
-        // marshmallowShortCnt: this.marshmallowShortCnt,
-        // monkLongCnt: this.marshmallowShortCnt,
-        // monsterLongCnt: this.marshmallowShortCnt,
-        // marshmallowLongCnt: this.marshmallowShortCnt,
-      },
+      modes: MmmMode,
+      current: MmmCurrent,
     };
     fs.writeFileSync(path, storedObj, 'cbor');
   };
@@ -105,19 +112,20 @@ MmmTracker.loadFromFile = (path) => {
   try {
     let store = fs.readFileSync(path, 'cbor');
 
-    if (
-      store.settings.currentMode != undefined ||
-      store.settings.currentMode != null
-    ) {
-      let tracker = new MmmTracker(store.settings);
+    if (store) {
+      let tracker = new MmmTracker(store.modes, store.current);
 
       return tracker;
     } else {
       return null;
     }
   } catch (e) {
-    fs.writeFileSync(CONFIG.MmmTrackerPath, CONFIG.settings, 'cbor');
-    let tracker = new MmmTracker(CONFIG.settings);
+    let storedObj = {
+      modes: MmmMode,
+      current: MmmCurrent,
+    };
+    fs.writeFileSync(MmmTrackerPath, storedObj, 'cbor');
+    let tracker = new MmmTracker(MmmMode, MmmCurrent);
     return tracker;
   }
 };

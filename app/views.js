@@ -70,21 +70,18 @@ function setStartAngles(arcList) {
     arcList[0].sweepAngle + arcList[1].sweepAngle + arcList[2].sweepAngle;
 }
 
-export function updateArcsOnTick(tracker) {
+export function updateArcsOnTick(tracker, date) {
+  let seconds = date.getSeconds();
+  let minutes = date.getMinutes();
   // Get the sweep angle by mode
   arcs.innerArcs.forEach((arc, index) => {
-    const shortCnt = tracker.getCount(index);
-    if (shortCnt) {
-      arc.sweepAngle = NUM_MINUTE_DEGREES * (shortCnt / NUM_OF_MINUTES);
-      // console.log(shortCnt + ' ' + arc.sweepAngle);
-    }
-  });
+    const count = tracker.getCount(index);
+    if (count) {
+      arc.sweepAngle = count / NUM_MINUTE_DEGREES;
+      // console.log(arc.id + ' ' + arc.sweepAngle + ' ' + count);
 
-  arcs.outerArcs.forEach((arc, index) => {
-    const longCnt = tracker.getCount(index);
-    if (longCnt) {
       arc.sweepAngle =
-        NUM_HOUR_DEGREES * (longCnt / NUM_OF_HOURS / NUM_OF_MINUTES);
+        NUM_HOUR_DEGREES * (count / NUM_OF_HOURS + minutes / NUM_OF_MINUTES);
     }
   });
 

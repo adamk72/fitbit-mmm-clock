@@ -1,35 +1,26 @@
 import * as buttons from './buttons';
 import { MmmTracker } from './tracker';
-import { MmmMode, MmmIndex } from './modes';
+import { MmmMode, MmmIndex, MmmTrackerPath } from './modes';
 
 import * as views from './views';
 import clock from 'clock';
 import { updateClock } from './analog-pointers';
-import { CONFIG } from './config';
 import { me } from 'appbit';
 
 me.addEventListener('unload', (evt) => {
-  tracker.saveToFile(CONFIG.MmmTrackerPath);
+  tracker.saveToFile(MmmTrackerPath);
 });
 
 // import * as fs from 'fs';
 // try {
-//   let store = fs.readFileSync(CONFIG.MmmTrackerPath, 'cbor');
-//   console.log(store.settings.currentMode);
-//   console.log(store.settings.monkMinCnt);
+//   let store = fs.readFileSync(MmmTrackerPath, 'cbor');
+//   console.log(store.modes[1].name);
+//   console.log(store.current.name);
 // } catch (e) {
 //   console.log('Failed file test' + e);
 // }
 
-let tracker = new MmmTracker.loadFromFile(CONFIG.MmmTrackerPath);
-
-//let tracker = new MmmTracker(CONFIG.settings);
-if (!tracker) {
-  console.log(
-    ' Failed to load tracker from file; trying again with new tracker'
-  );
-  tracker = new MmmTracker(CONFIG.settings);
-}
+let tracker = new MmmTracker.loadFromFile(MmmTrackerPath);
 
 clock.granularity = 'seconds';
 

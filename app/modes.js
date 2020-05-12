@@ -1,7 +1,9 @@
+export const MmmTrackerPath =  'mmm_tracker',
 export const MmmMode = [
   {
     name: 'Monk',
     initTime: 0,
+    lastCount: 0,
     shortCount: 0,
     longCount: 0,
     color: 'fb-peach',
@@ -11,8 +13,7 @@ export const MmmMode = [
   {
     name: 'Monster',
     initTime: 0,
-    shortCount: 0,
-    longCount: 0,
+    lastCount: 0,
     color: 'fb-red',
     index: 1,
     baseTime: 0,
@@ -20,8 +21,7 @@ export const MmmMode = [
   {
     name: 'Marshmallow',
     initTime: 0,
-    shortCount: 0,
-    longCount: 0,
+    lastCount: 0,
     color: 'fb-white',
     index: 2,
     baseTime: 0,
@@ -29,8 +29,7 @@ export const MmmMode = [
   {
     name: 'Pause',
     initTime: 0,
-    shortCount: 0,
-    longCount: 0,
+    lastCount: 0,
     color: 'fb-blue',
     index: 3,
     baseTime: 0,
@@ -48,8 +47,7 @@ export const MmmIndex = {
 export const MmmCurrent = {
   name: 'Current',
   initTime: 0,
-  shortCount: 0,
-  longCount: 0,
+  lastCount: 0,
   color: 'fb-dark-gray',
   index: -1,
   baseTime: 0,
