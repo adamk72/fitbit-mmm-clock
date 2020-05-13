@@ -20,7 +20,10 @@ me.addEventListener('unload', (evt) => {
 //   console.log('Failed file test' + e);
 // }
 
-let tracker = new MmmTracker.loadFromFile(MmmTrackerPath);
+const tracker = new MmmTracker.loadFromFile(MmmTrackerPath);
+const mode = tracker.getCurrentMode();
+if (mode.name === 'Initialize')
+  tracker.setCurrentMode(tracker.getModeByName('Pause')); // initial time if first time loading app.
 
 clock.granularity = 'seconds';
 
@@ -29,25 +32,26 @@ clock.addEventListener('tick', (evt) => {
   views.updateDateTimeOnTick(evt.date);
   views.updateModeImage(tracker);
   updateClock(tracker);
+  tracker.updateAccumCount();
   views.updateArcsOnTick(tracker, evt.date);
 });
 
 buttons.monk.addEventListener('activate', (evt) => {
-  tracker.setCurrentMode(MmmMode[MmmIndex.monk]);
+  tracker.setCurrentMode(tracker.getModeByName('Monk'));
   views.updateModeImage(tracker);
 });
 
 buttons.marshmallow.addEventListener('activate', (evt) => {
-  tracker.setCurrentMode(MmmMode[MmmIndex.marshmallow]);
+  tracker.setCurrentMode(tracker.getModeByName('Marshmallow'));
   views.updateModeImage(tracker);
 });
 
 buttons.monster.addEventListener('activate', (evt) => {
-  tracker.setCurrentMode(MmmMode[MmmIndex.monster]);
+  tracker.setCurrentMode(tracker.getModeByName('Monster'));
   views.updateModeImage(tracker);
 });
 
 buttons.pause.addEventListener('activate', (evt) => {
-  tracker.setCurrentMode(MmmMode[MmmIndex.pause]);
+  tracker.setCurrentMode(tracker.getModeByName('Pause'));
   views.updateModeImage(tracker);
 });
