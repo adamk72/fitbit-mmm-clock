@@ -76,8 +76,7 @@ export function MmmTracker(modesInit, currentInit) {
     const date = new Date();
     const time = date.getTime() / 1000;
 
-    console.log('B:' + this.current.name + ' ' + this.current.accumCount);
-    console.log('AdvBy: ' + advanceBy);
+    // console.log('B:' + this.current.name + ' ' + this.current.accumCount);
     this.current.accumCount = this.current.accumCount + 1;
     // console.log('A:' + this.current.name + ' ' + this.current.accumCount);
   };
@@ -114,8 +113,6 @@ MmmTracker.loadFromFile = (path) => {
       current: MmmCurrent,
     };
     fs.writeFileSync(MmmTrackerPath, store, 'cbor');
-    // console.log(store.modes[1].name);
-    // console.log(store.current.name);
     let tracker = new MmmTracker(MmmMode, MmmCurrent);
     return tracker;
   }

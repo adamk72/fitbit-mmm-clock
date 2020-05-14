@@ -79,7 +79,6 @@ export function updateArcsOnTick(tracker, date) {
     if (count) {
       arc.sweepAngle = count / NUM_MINUTE_DEGREES;
       // console.log(arc.id + ' ' + arc.sweepAngle + ' ' + count);
-      arc.sweepAngle = count / NUM_HOUR_DEGREES;
     }
   });
 
