@@ -32,7 +32,6 @@ clock.addEventListener('tick', (evt) => {
   views.updateDateTimeOnTick(evt.date);
   views.updateModeImage(tracker);
   updateClock(tracker);
-  tracker.updateAccumCount();
   views.updateArcsOnTick(tracker, evt.date);
 });
 

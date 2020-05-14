@@ -71,15 +71,12 @@ function setStartAngles(arcList) {
 }
 
 export function updateArcsOnTick(tracker, date) {
-  let seconds = date.getSeconds();
-  let minutes = date.getMinutes();
   // Get the sweep angle by mode
   arcs.innerArcs.forEach((arc, index) => {
-    const count = tracker.getCount(index);
-    if (count) {
-      arc.sweepAngle = count / NUM_MINUTE_DEGREES;
-      // console.log(arc.id + ' ' + arc.sweepAngle + ' ' + count);
+    if (tracker.getCurrentMode().name === tracker.getModeByIndex(index).name) {
+      tracker.incSweepAngle(1 / NUM_MINUTE_DEGREES);
     }
+    arc.sweepAngle = tracker.getSweepAngle(index);
   });
 
   setStartAngles(arcs.innerArcs);

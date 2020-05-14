@@ -1,6 +1,7 @@
 // import { outerArcs, innerArcs } from './arcs';
 import { MmmMode, MmmCurrent, MmmTrackerPath } from './modes';
 import * as fs from 'fs';
+import { resetOuterRing } from './arcs';
 
 export function MmmTracker(modesInit, currentInit) {
   this.innerColor = 'fb-blue';
@@ -8,13 +9,6 @@ export function MmmTracker(modesInit, currentInit) {
   this.date = new Date();
   this.modes = modesInit;
   this.current = currentInit;
-  {
-    // console.log('>>> on new current <<<');
-    // console.log(this.modes[0].name);
-    // console.log(this.modes[0].accumCount);
-    // console.log(this.current.name);
-    // console.log(this.current.accumCount);
-  }
 
   // Ideally, this should be located elsewhere
   this.getInnerColor = () => {
@@ -48,9 +42,12 @@ export function MmmTracker(modesInit, currentInit) {
     }
   };
 
+  this.getModeByIndex = (index) => {
+    return this.modes[index];
+  };
+
   this.setCurrentMode = (mode) => {
     const date = new Date();
-    const time = date / 1000;
 
     // if we switch modes, record the last count of the current mode before setting this.current
     if (mode.name != this.current.name) {
@@ -58,13 +55,13 @@ export function MmmTracker(modesInit, currentInit) {
         this.current.name = 'Pause';
       } else {
         // Add to the total accumulated time for the current mode
-        this.modes[this.current.index].accumCount = this.current.accumCount;
+        this.modes[this.current.index].sweepAngle = this.current.sweepAngle;
       }
       // Set the current info to the new mode to be.
       this.current.color = mode.color;
       this.current.name = mode.name;
       this.current.index = mode.index;
-      this.current.accumCount = mode.accumCount;
+      this.current.sweepAngle = mode.sweepAngle;
     }
   };
 
@@ -72,19 +69,24 @@ export function MmmTracker(modesInit, currentInit) {
     return this.current;
   };
 
-  this.updateAccumCount = () => {
-    const date = new Date();
-    const time = date.getTime() / 1000;
-
-    // console.log('B:' + this.current.name + ' ' + this.current.accumCount);
-    this.current.accumCount = this.current.accumCount + 1;
-    // console.log('A:' + this.current.name + ' ' + this.current.accumCount);
+  this.incSweepAngle = (byAmount = 0) => {
+    // console.log('B:' + this.current.name + ' ' + this.current.sweepAngle);
+    this.current.sweepAngle = this.current.sweepAngle + byAmount;
+    this.current.sweepAngleTotal = this.current.sweepAngleTotal + byAmount;
+    if (this.current.sweepAngleTotal >= 360) resetOuterRing();
+    // console.log('A:' + this.current.name + ' ' + this.current.sweepAngle);
   };
 
-  this.getCount = (index) => {
+  this.getSweepAngle = (index) => {
     if (this.current.index === index) {
-      return this.current.accumCount;
-    } else return this.modes[index].accumCount;
+      return this.current.sweepAngle;
+    } else return this.modes[index].sweepAngle;
+  };
+
+  this.resetInnerRing = () => {
+    this.modes.forEach((mode) => {
+      mode.sweepAngle = 0;
+    });
   };
 
   this.saveToFile = (path) => {
