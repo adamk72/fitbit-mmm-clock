@@ -1,6 +1,6 @@
 import * as buttons from './buttons';
 import { MmmTracker } from './tracker';
-import { MmmMode, MmmIndex, MmmTrackerPath } from './modes';
+import { MmmModes, MmmIndex, MmmTrackerPath } from './modes';
 
 import * as views from './views';
 import clock from 'clock';
@@ -16,8 +16,7 @@ me.addEventListener('unload', (evt) => {
 // import * as fs from 'fs';
 // try {
 //   let store = fs.readFileSync(MmmTrackerPath, 'cbor');
-//   console.log(store.modes[1].name);
-//   console.log(store.current.name);
+//   console.log('from test load:' + store.currents.length);
 // } catch (e) {
 //   console.log('Failed file test' + e);
 // }
@@ -26,17 +25,13 @@ initArcs();
 updateOuterArcs(2, 1, device.screen);
 
 const tracker = new MmmTracker.loadFromFile(MmmTrackerPath);
-const mode = tracker.getCurrentMode();
-if (mode.name === 'Initialize')
-  tracker.setCurrentMode(tracker.getModeByName('Pause')); // initial time if first time loading app.
 
-clock.granularity = 'seconds';
+clock.granularity = 'minutes';
 
 // Update current time
 clock.addEventListener('tick', (evt) => {
   views.updateDateTimeOnTick(evt.date);
-  views.updateModeImage(tracker);
-  views.updateArcsOnTick(tracker, evt.date);
+  views.updateOnTick(tracker, evt.date);
 });
 
 buttons.monk.addEventListener('activate', (evt) => {

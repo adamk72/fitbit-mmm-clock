@@ -22,7 +22,7 @@ function initArcsHelper(arcs, items, postFix = '') {
 export function updateOuterArcs(byAmt, width, screen) {
   const scrW = screen.width;
   const scrH = screen.height;
-  console.log(scrW + '/' + scrH);
+  // console.log(scrW + '/' + scrH);
   buttonArcs2.forEach((arc, index) => {
     arc.height = arc.height + byAmt * 2;
     arc.width = arc.width + byAmt * 2;
@@ -33,9 +33,9 @@ export function updateOuterArcs(byAmt, width, screen) {
     else arc.y = -30 - byAmt;
 
     arc.arcWidth = width;
-    console.log(index + ': ' + buttonArcNames[index].name + '/' + arc.arcWidth);
+    // console.log(index + ': ' + buttonArcNames[index].name + '/' + arc.arcWidth);
     // console.log(arc.height + '/' + arc.width);
-    console.log(arc.x + '/' + arc.y);
+    // console.log(arc.x + '/' + arc.y);
   });
 }
 

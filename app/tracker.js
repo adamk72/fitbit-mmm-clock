@@ -1,30 +1,17 @@
 // import { outerArcs, innerArcs } from './arcs';
-import { MmmMode, MmmCurrent, MmmTrackerPath } from './modes';
+import { MmmModes, MmmCurrents, MmmTrackerPath } from './modes';
 import * as fs from 'fs';
 
-export function MmmTracker(modesInit, currentInit) {
+const NUM_OF_MODES = 4;
+const FIB_SEQ = [0, 1, 2, 3, 8, 13, 21, 23, 55, 89];
+const SEC_PER_MIN = 60;
+
+export function MmmTracker(modesInit, currentsInit) {
   this.innerColor = 'fb-blue';
   this.outerColor = 'fb-blue';
   this.date = new Date();
   this.modes = modesInit;
-  this.current = currentInit;
-
-  // Ideally, this should be located elsewhere
-  this.getInnerColor = () => {
-    return this.innerColor;
-  };
-
-  this.getOuterColor = () => {
-    return this.outerColor;
-  };
-
-  this.setInnerColor = (color) => {
-    this.innerColor = color;
-  };
-
-  this.setOuterColor = (color) => {
-    this.outerColor = color;
-  };
+  this.currents = currentsInit;
 
   this.getModeByName = (name) => {
     switch (name) {
@@ -45,33 +32,35 @@ export function MmmTracker(modesInit, currentInit) {
     return this.modes[index];
   };
 
-  this.setCurrentMode = (mode) => {
-    const date = new Date();
+  this.updateModes = (time) => {
+    this.currents.forEach((mode, index) => {
+      let minutesPassed = (time - mode.initTime) / SEC_PER_MIN;
 
-    // if we switch modes, record the last count of the current mode before setting this.current
-    if (mode.name != this.current.name) {
-      if (this.current.name === 'Initialize') {
-        this.current.name = 'Pause';
-      } else {
-        // Add to the total accumulated time for the current mode
-        this.modes[this.current.index].sweepAngle = this.current.sweepAngle;
+      if (index === 0) {
+        console.log(minutesPassed);
       }
-      // Set the current info to the new mode to be.
-      this.current.color = mode.color;
-      this.current.name = mode.name;
-      this.current.index = mode.index;
-      this.current.sweepAngle = mode.sweepAngle;
+    });
+  };
+
+  this.setCurrentMode = (mode) => {
+    const time = new Date().getTime();
+
+    if (mode.name != this.currents[0].name) {
+      if (this.currents.length === NUM_OF_MODES) this.currents.pop();
+      mode.initTime = time;
+      this.currents.unshift(mode);
     }
+    console.log(mode.name + ': ' + mode.initTime);
   };
 
   this.getCurrentMode = () => {
-    return this.current;
+    return this.currents[0];
   };
 
   this.saveToFile = (path) => {
     let store = {
       modes: this.modes,
-      current: this.current,
+      currents: this.currents,
     };
     fs.writeFileSync(path, store, 'cbor');
   };
@@ -82,19 +71,19 @@ MmmTracker.loadFromFile = (path) => {
     let store = fs.readFileSync(path, 'cbor');
 
     if (store) {
-      let tracker = new MmmTracker(store.modes, store.current);
-
+      let tracker = new MmmTracker(store.modes, store.currents);
       return tracker;
     } else {
       return null;
     }
   } catch (e) {
     let store = {
-      modes: MmmMode,
-      current: MmmCurrent,
+      modes: MmmModes,
+      currents: MmmCurrents,
     };
     fs.writeFileSync(MmmTrackerPath, store, 'cbor');
-    let tracker = new MmmTracker(MmmMode, MmmCurrent);
+    MmmCurrents[0] = MmmModes[3]; // set this to be the Pause
+    let tracker = new MmmTracker(MmmModes, MmmCurrents);
     return tracker;
   }
 };

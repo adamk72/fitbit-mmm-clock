@@ -53,6 +53,10 @@ export function updateDateTimeOnTick(date) {
     date.getDate().toString();
 }
 
-export function updateArcsOnTick(tracker, date) {
+export function updateOnTick(tracker, date) {
+  const time = date.getTime();
+
+  tracker.updateModes(time);
+
   // Get the sweep angle by mode
 }
