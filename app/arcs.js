@@ -1,25 +1,15 @@
 import document from 'document';
 
-export const outerArcsItems = [
-  { name: 'monk-oArc' },
-  { name: 'monster-oArc' },
-  { name: 'marshmallow-oArc' },
-  { name: 'pause-oArc' },
-];
-export const innerArcsItems = [
-  { name: 'monk-iArc' },
-  { name: 'monster-iArc' },
-  { name: 'marshmallow-iArc' },
-  { name: 'pause-iArc' },
+export const buttonArcNames = [
+  { name: 'monk-urArc' },
+  { name: 'monster-lrArc' },
+  { name: 'marshmallow-llArc' },
+  { name: 'pause-ulArc' },
 ];
 
-export let outerArcs = [];
-export let innerArcs = [];
+export let buttonArcs = [];
 
-initializeInnerRing();
-initializeOuterRing();
-
-function initRing(arcs, items) {
+function initArcsHelper(arcs, items) {
   if (arcs.length === 0) {
     items.forEach((arc) => {
       let result = document.getElementById(arc.name);
@@ -30,18 +20,6 @@ function initRing(arcs, items) {
   }
 }
 
-export function initializeOuterRing() {
-  initRing(outerArcs, outerArcsItems);
-}
-
-export function initializeInnerRing() {
-  initRing(innerArcs, innerArcsItems);
-}
-
-export function resetInnerRing() {
-  innerArcs = [];
-}
-
-export function resetOuterRing() {
-  outerArcs = [];
+export function initArcs() {
+  initArcsHelper(buttonArcs, buttonArcNames);
 }

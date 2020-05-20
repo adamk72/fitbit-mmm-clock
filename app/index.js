@@ -4,7 +4,6 @@ import { MmmMode, MmmIndex, MmmTrackerPath } from './modes';
 
 import * as views from './views';
 import clock from 'clock';
-import { updateClock } from './analog-pointers';
 import { me } from 'appbit';
 
 me.addEventListener('unload', (evt) => {
@@ -31,7 +30,6 @@ clock.granularity = 'seconds';
 clock.addEventListener('tick', (evt) => {
   views.updateDateTimeOnTick(evt.date);
   views.updateModeImage(tracker);
-  updateClock(tracker);
   views.updateArcsOnTick(tracker, evt.date);
 });
 

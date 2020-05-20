@@ -31,7 +31,6 @@ export function toMonoDigits(num, zfill = true) {
 
 export function toDigits(num, fromLsb = true) {
   /* Convert a number into array of digits. If the number is zero, return null.
-    Argumenst:
       num: Number to be destructed.
       fromLsb: How the digits ordered in the returned array. Default to true.
         For example, if it's true, number 137 will return [7, 3, 1].

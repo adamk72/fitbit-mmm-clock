@@ -13,43 +13,6 @@
       <image fill="fb-white" id="Marshmallow" class="mmm-mode-image" href = "icons/marshmallow-base.png" width="25%" height="25%" x="50%-45" y="50%+30"/>
     </svg>
     </section>
-
-<section id="inner-circle">
-  <!-- pause arc-->
-  <arc id="pause-iArc" x="50%-106" y="50%-106" width="212" height="212" fill="fb-blue"
-    arc-width="5" start-angle="0" sweep-angle="360"/>
-
-  <!-- monk arc-->
-  <arc id="monk-iArc" x="50%-106" y="50%-106" width="212" height="212" fill="fb-peach"
-    arc-width="5" start-angle="0" sweep-angle="0">
-    </arc>
-
-  <!-- monster arc-->
-  <arc id="monster-iArc" x="50%-106" y="50%-106" width="212" height="212" fill="fb-red"
-    arc-width="5" start-angle="0" sweep-angle="0"/>
-
-  <!-- marshmallow arc-->
-  <arc id="marshmallow-iArc" x="50%-106" y="50%-106" width="212" height="212" fill="fb-white"
-    arc-width="5" start-angle="0" sweep-angle="0"/>
-</section>
-<section id="outer-circle">
-  <!-- pause arc-->
-  <arc id="pause-oArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-blue"
-    arc-width="3" start-angle="0" sweep-angle="360"/>
-
-  <!-- monk arc-->
-  <arc id="monk-oArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-peach"
-    arc-width="3" start-angle="0" sweep-angle="0">
-    </arc>
-
-  <!-- monster arc-->
-  <arc id="monster-oArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-red"
-    arc-width="3" start-angle="0" sweep-angle="0"/>
-
-  <!-- marshmallow arc-->
-  <arc id="marshmallow-oArc" x="50%-110" y="50%-110" width="220" height="220" fill="fb-white"
-    arc-width="3" start-angle="0" sweep-angle="0"/>
-</section>
 <section id="buttons">
 
     
@@ -78,7 +41,6 @@
     <!-- <set href="combo-button-stroke" attributeName="display" to="inline"/> -->
   </use>
 
-
   <arc id="monk-urArc" x="75%+10" y="-30" width="100" height="100" fill="fb-peach"
     arc-width="2" start-angle="0" sweep-angle="360">
   </arc>
@@ -101,21 +63,6 @@
       April, 02
     </text>
 
-
-
-
   </section>
-
-<section>  
-<svg id="analog-pointers">
-  <g id="outer-pointer" pointer-events="visible" transform="translate(50%,50%)">
-    <rect id="outer-rect" x="$-3" y="-116" width="6" height="6" fill="fb-cerulean" />
-  </g>
-  <g id="inner-pointer" pointer-events="visible" transform="translate(50%,50%)">
-    <rect id="inner-rect" x="$-2" y="-101" width="4" height="4" fill="fb-magenta" />
-  </g>
-  </svg>
-
-</section>
 
 </svg>

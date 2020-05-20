@@ -53,32 +53,6 @@ export function updateDateTimeOnTick(date) {
     date.getDate().toString();
 }
 
-/* Arc Views */
-
-const NUM_OF_DEGREES = 360;
-const NUM_OF_HOURS = 24;
-const NUM_OF_MINUTES = 60;
-const NUM_OF_SECONDS = 60;
-const NUM_MINUTE_DEGREES = NUM_OF_DEGREES / NUM_OF_MINUTES;
-const NUM_HOUR_DEGREES = NUM_OF_DEGREES / NUM_OF_HOURS / NUM_MINUTE_DEGREES;
-
-function setStartAngles(arcList) {
-  arcList[0].startAngle = 0;
-  arcList[1].startAngle = arcList[0].sweepAngle;
-  arcList[2].startAngle = arcList[0].sweepAngle + arcList[1].sweepAngle;
-  arcList[3].startAngle =
-    arcList[0].sweepAngle + arcList[1].sweepAngle + arcList[2].sweepAngle;
-}
-
 export function updateArcsOnTick(tracker, date) {
   // Get the sweep angle by mode
-  arcs.innerArcs.forEach((arc, index) => {
-    if (tracker.getCurrentMode().name === tracker.getModeByIndex(index).name) {
-      tracker.incSweepAngle(1 / NUM_MINUTE_DEGREES);
-    }
-    arc.sweepAngle = tracker.getSweepAngle(index);
-  });
-
-  setStartAngles(arcs.innerArcs);
-  setStartAngles(arcs.outerArcs);
 }

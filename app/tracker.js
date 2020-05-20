@@ -1,7 +1,6 @@
 // import { outerArcs, innerArcs } from './arcs';
 import { MmmMode, MmmCurrent, MmmTrackerPath } from './modes';
 import * as fs from 'fs';
-import { resetOuterRing } from './arcs';
 
 export function MmmTracker(modesInit, currentInit) {
   this.innerColor = 'fb-blue';
@@ -67,26 +66,6 @@ export function MmmTracker(modesInit, currentInit) {
 
   this.getCurrentMode = () => {
     return this.current;
-  };
-
-  this.incSweepAngle = (byAmount = 0) => {
-    // console.log('B:' + this.current.name + ' ' + this.current.sweepAngle);
-    this.current.sweepAngle = this.current.sweepAngle + byAmount;
-    this.current.sweepAngleTotal = this.current.sweepAngleTotal + byAmount;
-    if (this.current.sweepAngleTotal >= 360) resetOuterRing();
-    // console.log('A:' + this.current.name + ' ' + this.current.sweepAngle);
-  };
-
-  this.getSweepAngle = (index) => {
-    if (this.current.index === index) {
-      return this.current.sweepAngle;
-    } else return this.modes[index].sweepAngle;
-  };
-
-  this.resetInnerRing = () => {
-    this.modes.forEach((mode) => {
-      mode.sweepAngle = 0;
-    });
   };
 
   this.saveToFile = (path) => {
