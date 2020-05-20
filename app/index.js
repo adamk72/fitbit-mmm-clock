@@ -5,6 +5,7 @@ import { MmmMode, MmmIndex, MmmTrackerPath } from './modes';
 import * as views from './views';
 import clock from 'clock';
 import { me } from 'appbit';
+import { initArcs, buttonArcs2 } from './arcs';
 
 me.addEventListener('unload', (evt) => {
   tracker.saveToFile(MmmTrackerPath);
@@ -18,6 +19,8 @@ me.addEventListener('unload', (evt) => {
 // } catch (e) {
 //   console.log('Failed file test' + e);
 // }
+
+initArcs();
 
 const tracker = new MmmTracker.loadFromFile(MmmTrackerPath);
 const mode = tracker.getCurrentMode();
