@@ -5,8 +5,10 @@ import { MmmMode, MmmIndex, MmmTrackerPath } from './modes';
 import * as views from './views';
 import clock from 'clock';
 import { me } from 'appbit';
-import { initArcs, buttonArcs2 } from './arcs';
+import { me as device } from 'device';
+import { initArcs, updateOuterArcs } from './arcs';
 
+if (!device.screen) device.screen = { width: 348, height: 250 };
 me.addEventListener('unload', (evt) => {
   tracker.saveToFile(MmmTrackerPath);
 });
@@ -21,6 +23,7 @@ me.addEventListener('unload', (evt) => {
 // }
 
 initArcs();
+updateOuterArcs(2, 1, device.screen);
 
 const tracker = new MmmTracker.loadFromFile(MmmTrackerPath);
 const mode = tracker.getCurrentMode();
