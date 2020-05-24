@@ -26,8 +26,6 @@ const currentMode = tracker.getCurrentMode();
 if (currentMode.name === 'Pause' && currentMode.initTime === 0)
   currentMode.initTime = Date.now() / 1000;
 
-console.log(currentMode.name + ' : ' + currentMode.initTime);
-
 clock.granularity = 'minutes';
 
 // Update current time

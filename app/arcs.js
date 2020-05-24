@@ -55,10 +55,7 @@ function updateArc(arc, index, byAmt, thickness) {
 }
 export function updateArcByIndex(index, byAmt) {
   const arc = buttonArcs2[index];
-  console.log('Barc: ' + arc.id + ' x/y: ' + arc.x + '/' + arc.y);
   updateArc(arc, index, byAmt, 1);
-  arc.style.fill = 'lime';
-  console.log('Aarc: ' + arc.id + ' x/y: ' + arc.x + '/' + arc.y);
 }
 
 export function updateAllArcs(byAmt, thickness = 1) {
