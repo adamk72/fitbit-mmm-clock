@@ -66,7 +66,6 @@ export function updateAllArcs(byAmt, thickness = 1) {
 }
 
 export function initArcs() {
-  console.log(scrW + '/' + scrH);
   initArcsHelper(buttonArcs, buttonArcNames);
   initArcsHelper(buttonArcs2, buttonArcNames, '2');
 }
