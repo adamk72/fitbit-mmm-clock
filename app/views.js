@@ -1,5 +1,5 @@
 import document from 'document';
-import * as arcs from './arcs';
+import { updateArcByIndex } from './arcs';
 import * as utils from './utils.js';
 
 const months = [
@@ -34,6 +34,13 @@ export function updateModeImage(tracker) {
   }
 }
 
+export function updateOnTick(tracker) {
+  const modes = tracker.getModes();
+  modes.forEach((mode) => {
+    updateArcByIndex(mode.index, mode.arcWidth);
+  });
+}
+
 export /* Time Views */
 let timeText = document.getElementById('time-text');
 let dateText = document.getElementById('date-text');
@@ -51,12 +58,4 @@ export function updateDateTimeOnTick(date) {
     months[date.getMonth().toString()] +
     ', ' +
     date.getDate().toString();
-}
-
-export function updateOnTick(tracker, date) {
-  const time = date.getTime();
-
-  tracker.updateModes(time);
-
-  // Get the sweep angle by mode
 }

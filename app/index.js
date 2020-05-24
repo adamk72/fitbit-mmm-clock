@@ -1,14 +1,12 @@
 import * as buttons from './buttons';
 import { MmmTracker } from './tracker';
-import { MmmModes, MmmIndex, MmmTrackerPath } from './modes';
+import { MmmTrackerPath } from './modes';
 
 import * as views from './views';
 import clock from 'clock';
 import { me } from 'appbit';
-import { me as device } from 'device';
-import { initArcs, updateOuterArcs } from './arcs';
+import { initArcs, updateAllArcs } from './arcs';
 
-if (!device.screen) device.screen = { width: 348, height: 250 };
 me.addEventListener('unload', (evt) => {
   tracker.saveToFile(MmmTrackerPath);
 });
@@ -22,34 +20,40 @@ me.addEventListener('unload', (evt) => {
 // }
 
 initArcs();
-updateOuterArcs(2, 1, device.screen);
 
 const tracker = new MmmTracker.loadFromFile(MmmTrackerPath);
+const currentMode = tracker.getCurrentMode();
+if (currentMode.name === 'Pause' && currentMode.initTime === 0)
+  currentMode.initTime = Date.now() / 1000;
+
+console.log(currentMode.name + ' : ' + currentMode.initTime);
 
 clock.granularity = 'minutes';
 
 // Update current time
 clock.addEventListener('tick', (evt) => {
+  tracker.updateModesOnTick();
   views.updateDateTimeOnTick(evt.date);
-  views.updateOnTick(tracker, evt.date);
+  views.updateOnTick(tracker);
 });
 
+// Add Listner to Buttons
 buttons.monk.addEventListener('activate', (evt) => {
-  tracker.setCurrentMode(tracker.getModeByName('Monk'));
-  views.updateModeImage(tracker);
-});
-
-buttons.marshmallow.addEventListener('activate', (evt) => {
-  tracker.setCurrentMode(tracker.getModeByName('Marshmallow'));
+  tracker.setCurrentMode('Monk');
   views.updateModeImage(tracker);
 });
 
 buttons.monster.addEventListener('activate', (evt) => {
-  tracker.setCurrentMode(tracker.getModeByName('Monster'));
+  tracker.setCurrentMode('Monster');
+  views.updateModeImage(tracker);
+});
+
+buttons.marshmallow.addEventListener('activate', (evt) => {
+  tracker.setCurrentMode('Marshmallow');
   views.updateModeImage(tracker);
 });
 
 buttons.pause.addEventListener('activate', (evt) => {
-  tracker.setCurrentMode(tracker.getModeByName('Pause'));
+  tracker.setCurrentMode('Pause');
   views.updateModeImage(tracker);
 });
