@@ -3,8 +3,7 @@ import { MmmModes, MmmCurrents, MmmTrackerPath } from './modes';
 import * as fs from 'fs';
 
 const NUM_OF_MODES = 4;
-// const FIB_SEQ = [0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89];
-const FIB_SEQ = [0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3];
+const FIB_SEQ = [0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 99, 109, 119]; // inc by 10 minutes after awhile
 const SEC_PER_MIN = 60;
 
 export function MmmTracker(modesInit, currentsInit) {
@@ -41,7 +40,7 @@ export function MmmTracker(modesInit, currentsInit) {
       }
     }
     mode.arcWidth = Math.max(mode.arcWidth, fibIdx + 1);
-    // console.log(minutesPassed);
+    // console.log(mode.arcWidth + ': ' + minutesPassed);
   };
 
   this.setCurrentMode = (name) => {
