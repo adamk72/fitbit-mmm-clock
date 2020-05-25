@@ -41,7 +41,7 @@ export function MmmTracker(modesInit, currentsInit) {
       }
     }
     mode.arcWidth = fibIdx + 1;
-    console.log(minutesPassed);
+    // console.log(minutesPassed);
   };
 
   this.setCurrentMode = (name) => {

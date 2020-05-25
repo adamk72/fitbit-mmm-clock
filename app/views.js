@@ -1,5 +1,5 @@
 import document from 'document';
-import { renderArcByIndex } from './arcs';
+import { renderArcByIndex, resetArcsExcept } from './arcs';
 import * as utils from './utils.js';
 
 const months = [
@@ -35,10 +35,9 @@ export function updateModeImage(tracker) {
 }
 
 export function updateOnTick(tracker) {
-  const modes = tracker.getModes();
-  modes.forEach((mode) => {
-    renderArcByIndex(mode.index, mode.arcWidth);
-  });
+  const currentMode = tracker.getCurrentMode();
+  resetArcsExcept(currentMode.index); //Rest the other arcs, as if the app was just starting.
+  renderArcByIndex(currentMode.index, currentMode.arcWidth);
 }
 
 export /* Time Views */
