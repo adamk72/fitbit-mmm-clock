@@ -40,7 +40,7 @@ export function MmmTracker(modesInit, currentsInit) {
         break;
       }
     }
-    mode.arcWidth = fibIdx + 1;
+    mode.arcWidth = Math.max(mode.arcWidth, fibIdx + 1);
     // console.log(minutesPassed);
   };
 
