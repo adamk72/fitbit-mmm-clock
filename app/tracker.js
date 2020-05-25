@@ -31,17 +31,16 @@ export function MmmTracker(modesInit, currentsInit) {
   };
 
   this.updateModesOnTick = () => {
-    this.currents.forEach((mode, index) => {
-      let minutesPassed = (Date.now() / 1000 - mode.initTime) / SEC_PER_MIN;
-      let fibIdx = -1;
-      for (let i = 0; i <= FIB_SEQ.length; i++) {
-        if (FIB_SEQ[i] >= minutesPassed) {
-          fibIdx = i;
-          break;
-        }
+    const mode = this.currents[0];
+    let minutesPassed = (Date.now() / 1000 - mode.initTime) / SEC_PER_MIN;
+    let fibIdx = -1;
+    for (let i = 0; i <= FIB_SEQ.length; i++) {
+      if (FIB_SEQ[i] >= minutesPassed) {
+        fibIdx = i;
+        break;
       }
-      mode.arcWidth = fibIdx + 1;
-    });
+    }
+    mode.arcWidth = fibIdx + 1;
   };
 
   this.setCurrentMode = (name) => {

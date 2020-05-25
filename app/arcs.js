@@ -43,7 +43,7 @@ function initArcsHelper(arcs, items, postFix = '') {
   }
 }
 
-function updateArc(arc, index, byAmt, thickness) {
+function updateArc(arc, index, byAmt) {
   if (index === 0 || index == 1) arc.x = scrW * 0.75 - byAmt + 10;
   else arc.x = -26 - byAmt;
 
@@ -52,10 +52,11 @@ function updateArc(arc, index, byAmt, thickness) {
 
   arc.height = ARC_INIT_DIAMETER + byAmt * 2;
   arc.width = ARC_INIT_DIAMETER + byAmt * 2;
+  arc.arcWidth = byAmt;
 }
 export function updateArcByIndex(index, byAmt) {
   const arc = buttonArcs2[index];
-  updateArc(arc, index, byAmt, 1);
+  updateArc(arc, index, byAmt);
 }
 
 export function updateAllArcs(byAmt, thickness = 1) {
