@@ -1,5 +1,5 @@
 import document from 'document';
-import { updateArcByIndex } from './arcs';
+import { renderArcByIndex } from './arcs';
 import * as utils from './utils.js';
 
 const months = [
@@ -37,7 +37,7 @@ export function updateModeImage(tracker) {
 export function updateOnTick(tracker) {
   const modes = tracker.getModes();
   modes.forEach((mode) => {
-    updateArcByIndex(mode.index, mode.arcWidth);
+    renderArcByIndex(mode.index, mode.arcWidth);
   });
 }
 

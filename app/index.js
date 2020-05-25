@@ -5,7 +5,7 @@ import { MmmTrackerPath } from './modes';
 import * as views from './views';
 import clock from 'clock';
 import { me } from 'appbit';
-import { initArcs, updateAllArcs } from './arcs';
+import { initArcs } from './arcs';
 
 me.addEventListener('unload', (evt) => {
   tracker.saveToFile(MmmTrackerPath);
@@ -32,28 +32,36 @@ clock.granularity = 'minutes';
 
 // Update current time
 clock.addEventListener('tick', (evt) => {
-  tracker.updateModesOnTick();
   views.updateDateTimeOnTick(evt.date);
-  views.updateOnTick(tracker);
+  updateHelper();
 });
+
+function updateHelper() {
+  tracker.updateModesOnTick();
+  views.updateOnTick(tracker);
+}
 
 // Add Listner to Buttons
 buttons.monk.addEventListener('activate', (evt) => {
   tracker.setCurrentMode('Monk');
+  updateHelper();
   views.updateModeImage(tracker);
 });
 
 buttons.monster.addEventListener('activate', (evt) => {
   tracker.setCurrentMode('Monster');
+  updateHelper();
   views.updateModeImage(tracker);
 });
 
 buttons.marshmallow.addEventListener('activate', (evt) => {
   tracker.setCurrentMode('Marshmallow');
+  updateHelper();
   views.updateModeImage(tracker);
 });
 
 buttons.pause.addEventListener('activate', (evt) => {
   tracker.setCurrentMode('Pause');
+  updateHelper();
   views.updateModeImage(tracker);
 });

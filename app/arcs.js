@@ -16,9 +16,7 @@ export let buttonArcs = [];
 export let buttonArcs2 = [];
 
 const ARC_INIT_DIAMETER = 100;
-const ARC_INIT_WIDTH = 3;
-const TOP_PADDING = 12;
-const SIDE_PADDING = 6;
+const ARC_INIT_WIDTH = 2;
 
 function initArcsHelper(arcs, items, postFix = '') {
   if (arcs.length === 0) {
@@ -34,6 +32,7 @@ function initArcsHelper(arcs, items, postFix = '') {
       else arc.y = -30 - byAmt;
 
       arc.arcWidth = ARC_INIT_WIDTH;
+      if (index === 3) arc.arcWidth = ARC_INIT_WIDTH - 1; // since it will get initiated with a +1 line
       arc.height = ARC_INIT_DIAMETER;
       arc.width = ARC_INIT_DIAMETER;
 
@@ -43,7 +42,7 @@ function initArcsHelper(arcs, items, postFix = '') {
   }
 }
 
-function updateArc(arc, index, byAmt) {
+function renderArc(arc, index, byAmt) {
   if (index === 0 || index == 1) arc.x = scrW * 0.75 - byAmt + 10;
   else arc.x = -26 - byAmt;
 
@@ -54,14 +53,15 @@ function updateArc(arc, index, byAmt) {
   arc.width = ARC_INIT_DIAMETER + byAmt * 2;
   arc.arcWidth = byAmt;
 }
-export function updateArcByIndex(index, byAmt) {
+export function renderArcByIndex(index, byAmt) {
   const arc = buttonArcs2[index];
-  updateArc(arc, index, byAmt);
+  console.log(arc.id + ': ' + arc.arcWidth);
+  renderArc(arc, index, byAmt);
 }
 
-export function updateAllArcs(byAmt, thickness = 1) {
+export function renderAllArcss(byAmt, thickness = 1) {
   buttonArcs2.forEach((arc, index) => {
-    updateArc(arc, index, byAmt, thickness);
+    renderArc(arc, index, byAmt, thickness);
     arc.style.fill = 'magenta';
   });
 }
